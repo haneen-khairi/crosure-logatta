@@ -6,7 +6,7 @@ import * as SearchAPI from "../../../api/search";
 import SearchBar from "../../../components/searchBar";
 import SearchEngineLayout from "../../../layouts/searchEngine";
 import { setPostcode } from "../../../redux/actions/data";
-import { borderRound } from "../../../utils/consts";
+// import { borderRound } from "../../../utils/consts";
 
 const SearchPage = () => {
   const dispatch = useDispatch();

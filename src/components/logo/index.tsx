@@ -1,20 +1,20 @@
 import { Flex, Image } from "@chakra-ui/react";
 import { Fragment } from "react";
 
-import logo from "../../assets/img/brand/logo-photo.png";
-import logoFullHWhite from "../../assets/img/brand/logo-white.svg";
-import logoFullH from "../../assets/img/brand/logo.svg";
+// import logo from "../../assets/img/brand/logo-photo.png";
+// import logoFullHWhite from "../../assets/img/brand/logo-white.svg";
+// import logoFullH from "../../assets/img/brand/logo.svg";
 
 const Logo = ({
   noText = false,
   vertical = false,
-  white = false,
+  // white = false,
   size = "200px",
-  imageSrc = logo,
+  imageSrc = "/logo_login.svg",
   className,
   props
 }: any) => {
-  const pickedLogo = white ? logoFullHWhite : logoFullH;
+  // const pickedLogo = white ? logoFullHWhite : logoFullH;
 
   return (
     <Fragment>

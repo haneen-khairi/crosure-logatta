@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 import Navbar from "../../components/layouts/navbar";
 import LoadingIndicator from "../../components/loadingIndicator";

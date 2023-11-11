@@ -12,7 +12,7 @@ interface props {
 const AuthHeader = ({ title, subtitle }: props) => {
   return (
     <Box pb="3">
-      <Logo />
+      <Logo imageSrc="/logo_login.svg" />
 
       <Divider my={5} borderColor="darkgray" borderWidth="1px" />
 

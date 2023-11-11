@@ -4,7 +4,7 @@ import { computedInputProps } from "./FormRenderer";
 
 const SelectMultiInput = ({ onChange, ...props }: computedInputProps) => {
   return (
-    <Popover placement="right-start">
+    <Popover placement="bottom">
       <PopoverTrigger>
         <Input
           colorScheme="primary"

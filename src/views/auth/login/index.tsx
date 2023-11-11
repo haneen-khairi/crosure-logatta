@@ -1,14 +1,17 @@
-import { RepeatIcon } from "@chakra-ui/icons";
+// import { RepeatIcon } from "@chakra-ui/icons";
 import { useDispatch } from "react-redux";
 
 import * as UserAPI from "../../../api/user/";
 import FormRenderer from "../../../components/forms/FormRenderer";
 import AuthLayout from "../../../layouts/auth";
 import { login } from "../../../redux/actions/auth";
+import { Image } from "@chakra-ui/image";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
-
+  function getWelcBackImage(){
+    return <Image height={'20px'} width={'20px'} src="welc_back.svg" />;
+  }
   const inputs = [
     {
       placeholder: "Email",
@@ -53,7 +56,7 @@ const LoginPage = () => {
 
   return (
     <AuthLayout
-      icon={<RepeatIcon me={2} color="primary.500" />}
+      icon={getWelcBackImage()}
       title="Welcome back,"
       subtitle="Please enter your credentials to login to your account."
     >

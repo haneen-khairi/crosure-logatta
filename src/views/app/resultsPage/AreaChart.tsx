@@ -15,7 +15,8 @@ const AreaChart = React.memo(({ data }: { data: object }) => {
       },
     ],
   };
-
+  console.log('=== AreaChart ===', example)
+  
   return (
     <Chart
       options={example.options}

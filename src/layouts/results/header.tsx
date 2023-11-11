@@ -53,7 +53,7 @@ const ResultsHeader = () => {
             fontFamily={"heading"}
             color={useColorModeValue("gray.800", "white")}
           >
-            <Logo />
+            <Logo imageSrc="/logo.svg" size='50px' />
           </Text>
 
           <Flex display="flex" ml={10}>

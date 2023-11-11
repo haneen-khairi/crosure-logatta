@@ -1,5 +1,5 @@
 import { Box, Image, SimpleGrid } from "@chakra-ui/react";
-import { Fragment } from "react";
+// import { Fragment } from "react";
 
 import AuthPhoto from "../../assets/img/layout/auth.jpg";
 import AuthHeader from "./Header";
@@ -18,10 +18,10 @@ const AuthLayout = ({ children, icon, title, subtitle }: props) => {
         <Box order={{ base: 2, md: 1 }} py={5} px={20} my="auto">
           <AuthHeader
             title={
-              <Fragment>
+              <p style={{display:'flex' , alignItems: 'center', justifyContent: 'flex-start', gap:'10px'}}>
                 {icon}
                 {title}
-              </Fragment>
+              </p>
             }
             subtitle={subtitle}
           />
