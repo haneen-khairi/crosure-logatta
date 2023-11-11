@@ -17,6 +17,7 @@ const SearchBar = ({ onSubmit }: props) => {
   const [postcode, setPostcode] = useState(code || "");
 
   const onValueSubmit = () => {
+    
     onSubmit(postcode);
   };
 
