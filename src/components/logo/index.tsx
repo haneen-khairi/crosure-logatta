@@ -10,20 +10,23 @@ const Logo = ({
   vertical = false,
   white = false,
   size = "200px",
-}) => {
+  imageSrc = logo,
+  className,
+  props
+}: any) => {
   const pickedLogo = white ? logoFullHWhite : logoFullH;
 
   return (
     <Fragment>
       {noText ? (
-        <Image src={logo} w={size} />
+        <Image src={imageSrc} w={size}  {...props} className={className} />
       ) : vertical ? (
         <Fragment>
-          <Image src={pickedLogo} w={size} />
+          <Image src={imageSrc} w={size}  {...props} className={className} />
         </Fragment>
       ) : (
         <Flex textAlign="center" alignItems="center" alignContent="center">
-          <Image src={pickedLogo} w={size} me={2} />
+          <Image src={imageSrc} w={size} me={2} {...props} className={className} />
         </Flex>
       )}
     </Fragment>

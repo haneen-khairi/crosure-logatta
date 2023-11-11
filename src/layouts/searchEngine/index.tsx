@@ -17,12 +17,15 @@ const SearchEngineLayout = ({ children }: props) => {
       pt="30vh"
     >
       <Box mx={{ base: 10, md: 40, lg: 200, xl: 460 }}>
-        <Logo noText size="100px" />
+        <div className="text-center">
+          <Logo imageSrc="/logo_search.svg" noText size="100px" className="m-auto"  />
+          <h3 className="searcharea__header">Commsure</h3>
+          <p className="searcharea__paragraph">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+        </div>
 
-        <Text fontSize="sm" opacity={0.5} textAlign="center" my={3}>
+        {/* <Text fontSize="sm" opacity={0.5} textAlign="center" my={3}>
           This is the subtitle
-        </Text>
-
+        </Text> */}
         <LoadingIndicator />
 
         <Box my={{ base: 10, lg: 10 }}>{children}</Box>
