@@ -1,4 +1,4 @@
-import { GridItem, SimpleGrid } from "@chakra-ui/react";
+// import { GridItem, SimpleGrid } from "@chakra-ui/react";
 import { Fragment } from "react";
 
 import { locationProps } from ".";
@@ -81,20 +81,18 @@ const  ResultsSearchBox = ({
       title="Select Properties"
       body={
         <Fragment>
-          {!withoutMap && data?.length ? (
-            <SimpleGrid columns={{ base: 1, lg: 4 }} gap={7}>
-              <GridItem zIndex={101}>
-                <FormRenderer
-                  inputs={inputs}
-                  onSubmit={(e: object) => onSubmit(e)}
-                />
-              </GridItem>
+          {!withoutMap && data?.length ? <>
+            {/* <SimpleGrid columns={5} gap={'18px'}> */}
+            <FormRenderer
+            columns={5}
+              inputs={inputs}
+              onSubmit={(e: object) => onSubmit(e)}
+            />
+        {/* </SimpleGrid> */}
 
-              <GridItem colSpan={3} zIndex={100}>
-                <GoogleMapComp data={data} setProperty={setProperty} />
-              </GridItem>
-            </SimpleGrid>
-          ) : (
+            <GoogleMapComp data={data} setProperty={setProperty} />
+          </>
+           : (
             <FormRenderer
               inputs={inputs}
               onSubmit={(e: object) => onSubmit(e)}

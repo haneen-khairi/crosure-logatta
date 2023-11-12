@@ -6,6 +6,8 @@ interface props {
 }
 
 const ShowMoreButton = ({ onClick }: props) => {
+  console.log("=== ada ===" , onclick);
+  
   return (
     <Text color="primary.500" role="button" onClick={onClick}>
       Show More <ChevronRightIcon />

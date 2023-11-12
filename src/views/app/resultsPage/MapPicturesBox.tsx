@@ -34,7 +34,7 @@ const MapPicturesBox = ({ data }: props) => {
               data={[{ id: data.id, lat: data.lat, lng: data.lng }]}
             />
 
-            <Flex justifyContent="space-between">
+            <Flex justifyContent="space-between" gap={'16px'} marginTop={'16px'}>
               <BoxTitle title="Property Pictures" />
 
               {/* <ShowMoreButton onClick={() => setGallery(0)} /> */}
@@ -46,6 +46,10 @@ const MapPicturesBox = ({ data }: props) => {
                   <Image
                     src={img}
                     width="100%"
+                    style={{
+                      borderRadius: '16px',
+                      height: '100px'
+                    }}  
                     onClick={() => setGallery(i)}
                     role="button"
                   />

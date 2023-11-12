@@ -1,4 +1,4 @@
-import { Flex, TagLeftIcon } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { Fragment } from "react";
 
 import { summaryProps } from ".";
@@ -13,33 +13,34 @@ interface props {
 }
 
 const ResultsSummaryBox = ({ data, setShowDetails }: props) => {
+  console.log('=== ResultsSummaryBox ===', data);
+  
   const summaryStats = [
     {
-      color: "green",
-      Icon: TagLeftIcon,
+      // color: "green",
+      Icon: "/price_range.svg",
       title: "Price Range",
       stat: data.avg_price,
     },
     {
-      color: "blue",
-      Icon: TagLeftIcon,
+      // color: "blue",
+      Icon: "/average_living_costs.svg",
       title: "Average Living Costs",
       stat: data.avg_living_costs,
     },
-    {
-      color: "blue",
-      Icon: TagLeftIcon,
-      title: "Average Living Costs With Currency",
-      stat: data.avg_living_costs_with_currency,
-    },
-    {
-      color: "blue",
-      Icon: TagLeftIcon,
-      title: "Price With Currency",
-      stat: data.price_with_currency,
-    },
+    // {
+    //   color: "blue",
+    //   Icon: TagLeftIcon,
+    //   title: "Average Living Costs With Currency",
+    //   stat: data.avg_living_costs_with_currency,
+    // },
+    // {
+    //   color: "blue",
+    //   Icon: TagLeftIcon,
+    //   title: "Price With Currency",
+    //   stat: data.price_with_currency,
+    // },
   ];
-  console.log('=== ResultsSummaryBox ===', data , setShowDetails)
   return (
     <CardComp
       body={
@@ -53,12 +54,12 @@ const ResultsSummaryBox = ({ data, setShowDetails }: props) => {
               }
             />
 
-            {data.price_with_currency && (
-              <ShowMoreButton onClick={() => setShowDetails(data.id)} />
+            {data.avg_living_costs !== null && (
+              <ShowMoreButton onClick={() => setShowDetails('1475')} />
             )}
           </Flex>
 
-          <StatList stats={summaryStats.filter(({ stat }) => stat)} />
+          <StatList stats={summaryStats} />
         </Fragment>
       }
     />

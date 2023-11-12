@@ -247,6 +247,8 @@ const ResultsPage = () => {
         setPropertyDetails(res);
       });
     }
+    console.log('=== show details ===', showDetails);
+    
   }, [showDetails]);
 
   const resetProperty = () => {

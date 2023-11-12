@@ -1,5 +1,5 @@
 import { ChevronRightIcon } from "@chakra-ui/icons";
-import { Flex, TagLeftIcon, Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import { Fragment } from "react";
 
 import { detailsProps } from ".";
@@ -14,52 +14,52 @@ interface props {
 
 const ResultsDetailsBox = ({ data, reset }: props) => {
   const stats = [
-    {
-      color: "green",
-      Icon: TagLeftIcon,
-      title: "Price",
-      stat: data.price_with_currency,
-    },
+    // {
+    //   color: "green",
+    //   Icon: "/public/",
+    //   title: "Price",
+    //   stat: data.price_with_currency,
+    // },
+    // {
+    //   color: "blue",
+    //   Icon: TagLeftIcon,
+    //   title: "Average Living Costs",
+    //   stat: data.avg_living_costs_with_currency,
+    // },
     {
       color: "blue",
-      Icon: TagLeftIcon,
-      title: "Average Living Costs",
-      stat: data.avg_living_costs_with_currency,
-    },
-    {
-      color: "blue",
-      Icon: TagLeftIcon,
-      title: "Type",
+      Icon: "/property_type.svg",
+      title: "Property type",
       stat: data.property_type,
     },
     {
       color: "blue",
-      Icon: TagLeftIcon,
+      Icon: "/bedrooms.svg",
       title: "Bedrooms Count",
       stat: data.bedrooms,
     },
     {
       color: "blue",
-      Icon: TagLeftIcon,
+      Icon: "/bedrooms.svg",
       title: "Bathrooms Count",
       stat: data.bathrooms,
     },
     {
       color: "blue",
-      Icon: TagLeftIcon,
+      Icon: "/check_right.svg",
       title: "Condition",
       stat: data.condition,
     },
     {
       color: "blue",
-      Icon: TagLeftIcon,
-      title: "Is Storage",
+      Icon: "/storage.svg",
+      title: "Storage",
       stat: data.storage ? "Yes" : "No",
     },
     {
       color: "blue",
-      Icon: TagLeftIcon,
-      title: "Gardens Count",
+      Icon: "/gardens.svg",
+      title: "Gardens",
       stat: data.gardens,
     },
   ];

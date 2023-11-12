@@ -1,8 +1,8 @@
-import { Flex, IconButton, Text } from "@chakra-ui/react";
+import { Flex, IconButton, Image, Text } from "@chakra-ui/react";
 
 interface props {
   stats: {
-    color: string;
+    color?: string;
     Icon: any;
     title: string;
     stat?: number | string;
@@ -10,17 +10,19 @@ interface props {
 }
 
 const StatList = ({ stats }: props) => {
-  return stats.map(({ Icon, title, stat, color }, i) => (
+  console.log('=== StatList ===', stats);
+  
+  return stats.map(({ Icon, title, stat }, i) => (
     <Flex justifyContent="space-between" key={i} my={4}>
       <Text>
         <IconButton
           isRound
           aria-label="Done"
-          colorScheme={color}
+          // colorScheme={color}
           fontSize="20px"
           me={2}
           cursor="default"
-          icon={<Icon m="auto auto" />}
+          icon={<Image src={Icon} />}
         />
         {title}
       </Text>

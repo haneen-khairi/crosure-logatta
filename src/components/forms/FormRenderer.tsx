@@ -48,6 +48,7 @@ export interface dynamicObject {
 }
 
 interface props {
+  columns?: number,
   inputs: inputProps[];
   onSubmit: any;
   data?: object;
@@ -57,6 +58,7 @@ interface props {
 }
 
 const FormRenderer = ({
+  columns,
   inputs,
   onSubmit,
   data,
@@ -106,7 +108,7 @@ const FormRenderer = ({
           formik.submitForm();
         }}
       >
-        <Grid templateColumns="repeat(12, 1fr)" gap={4}>
+        <Grid templateColumns="repeat(5, 1fr)" gap={4} column={columns}>
           {inputs.map(
             ({ required, min, max, minLength, maxLength, ...input }, i) => (
               <InputRenderer

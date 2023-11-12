@@ -20,7 +20,7 @@ const SelectMultiInput = ({ onChange, ...props }: computedInputProps) => {
         />
       </PopoverTrigger>
 
-      <PopoverContent bgColor="#ffffff" opacity={1}>
+      <PopoverContent bgColor="#ffffff">
         <PopoverBody>
           {props.options?.map(({ value, label }, i) => (
             <Checkbox
