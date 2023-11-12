@@ -39,7 +39,7 @@ const ResultsSummaryBox = ({ data, setShowDetails }: props) => {
       stat: data.price_with_currency,
     },
   ];
-
+  console.log('=== ResultsSummaryBox ===', data , setShowDetails)
   return (
     <CardComp
       body={

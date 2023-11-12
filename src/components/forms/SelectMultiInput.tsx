@@ -4,12 +4,13 @@ import { computedInputProps } from "./FormRenderer";
 
 const SelectMultiInput = ({ onChange, ...props }: computedInputProps) => {
   return (
-    <Popover placement="bottom">
+    <Popover placement="bottom-start">
       <PopoverTrigger>
         <Input
           colorScheme="primary"
           size="lg"
           {...props}
+          borderRadius={'24px'}
           value={props.value
             .map(
               (v: string | number | boolean) =>

@@ -13,7 +13,7 @@ interface props {
   onSubmit?: any;
 }
 
-const ResultsSearchBox = ({
+const  ResultsSearchBox = ({
   withoutMap,
   data,
   setProperty,

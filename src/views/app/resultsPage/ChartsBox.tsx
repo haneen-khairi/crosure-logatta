@@ -4,10 +4,11 @@ import { useSelector } from "react-redux";
 
 import * as StatsAPI from "../../../api/search/stats";
 import CardComp from "../../../components/cards";
-import InputTypePicker from "../../../components/forms/InputTypePicker";
+// import InputTypePicker from "../../../components/forms/InputTypePicker";
 import TabsComp from "../../../components/tabs";
 import BoxTitle from "../../../components/typography/BoxTitle";
 import AreaChart from "./AreaChart";
+import SelectComponent from "../../../components/SelectComponent";
 
 const ResultsChartsBox = () => {
   const [stats, setStats] = useState({ fires: [], crimes: [] });
@@ -26,8 +27,9 @@ const ResultsChartsBox = () => {
       start: "07-2020",
       count: 5,
       types: chartSelectedOptions.crimes,
-    }).then((crimes) => {
+    }).then((crimes: any) => {
       // @ts-ignore
+      console.log('=== crimes ===', crimes),
       setStats((current) => ({ ...current, crimes }));
     });
 
@@ -39,6 +41,7 @@ const ResultsChartsBox = () => {
     }).then((fires) => {
       // @ts-ignore
       setStats((current) => ({ ...current, fires }));
+
     });
   }, [postcode, chartSelectedOptions]);
 
@@ -46,9 +49,10 @@ const ResultsChartsBox = () => {
     title = "",
     name = "",
     label = "",
-    options = [""],
+    // options = [""],
     data = [],
   }) => (
+    console.log('=== name ===', name),
     <Fragment>
       <SimpleGrid columns={{ base: 1, md: 2 }}>
         <GridItem>
@@ -64,7 +68,44 @@ const ResultsChartsBox = () => {
         </GridItem>
 
         <GridItem>
-          <InputTypePicker
+          <SelectComponent
+          name={name}
+          allOptions={
+            [
+              {label: 'ALL' ,  value: 'All'},
+              {label: 'Criminal damage and arson', value:'Criminal damage and arson'} , 
+              {label:'Drugs',value: 'Drugs'}, 
+              {label: 'Other crime',  value: 'Other crime'} ,
+              {label: 'theft',  value: 'theft'} ,
+              {label: 'Possession of weapons',  value: 'Possession of weapons'} ,
+              {label: 'Public order',  value: 'Public order'} ,
+              {label: 'Robbery',  value: 'Robbery'} ,
+              {label: 'Vehicle crime',  value: 'Vehicle crime'} ,
+              {label: 'Violence and sexual offences' , value: 'Violence and sexual offences'} 
+            ]
+          }
+          getInitialDataBack={(value:any) => {
+            setChartSelectedOptions((current) => ({
+              ...current,
+              [name]: value,
+            }))
+            // if (
+            //   value.includes("All") &&
+            //   !(chartSelectedOptions as any)['crimes'].includes("All")
+            // ) {
+            //   setChartSelectedOptions((current) => ({
+            //     ...current,
+            //     ['crimes']: ["All"],
+            //   }))
+            // } else {
+            //   setChartSelectedOptions((current) => ({
+            //     ...current,
+            //     ['crimes']: value.filter((v:any) => v !== "All"),
+            //   }));
+            // }
+          }}
+          />
+          {/* <InputTypePicker
             name={name}
             placeholder={"Type of " + label}
             type="selectMany"
@@ -95,7 +136,7 @@ const ResultsChartsBox = () => {
                 label: option,
               })),
             ]}
-          />
+          /> */}
         </GridItem>
 
         <GridItem colSpan={2}>
@@ -114,17 +155,17 @@ const ResultsChartsBox = () => {
           name="crimes"
           label="Crimes"
           data={stats.crimes}
-          options={[
-            "Criminal damage and arson",
-            "Drugs",
-            "Other crime",
-            "theft",
-            "Possession of weapons",
-            "Public order",
-            "Robbery",
-            "Vehicle crime",
-            "Violence and sexual offences",
-          ]}
+          // options={[
+          //   "Criminal damage and arson",
+          //   "Drugs",
+          //   "Other crime",
+          //   "theft",
+          //   "Possession of weapons",
+          //   "Public order",
+          //   "Robbery",
+          //   "Vehicle crime",
+          //   "Violence and sexual offences",
+          // ]}
         />
       ),
     },
@@ -136,12 +177,12 @@ const ResultsChartsBox = () => {
           name="fires"
           label="Fire Incidents"
           data={stats.fires}
-          options={[
-            "Chimney fire",
-            "Secondary Fire - accidental",
-            "Secondary Fire - deliberate",
-            "Primary fire - buildings",
-          ]}
+          // options={[
+          //   "Chimney fire",
+          //   "Secondary Fire - accidental",
+          //   "Secondary Fire - deliberate",
+          //   "Primary fire - buildings",
+          // ]}
         />
       ),
     },
