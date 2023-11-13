@@ -27,7 +27,7 @@ const StatList = ({ stats }: props) => {
         {title}
       </Text>
 
-      <Text>{stat}</Text>
+      <Text>{stat === undefined ? 0 : stat}</Text>
     </Flex>
   ));
 };
