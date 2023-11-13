@@ -20,13 +20,13 @@ const ResultsSummaryBox = ({ data, setShowDetails }: props) => {
       // color: "green",
       Icon: "/price_range.svg",
       title: "Price Range",
-      stat: data.avg_price,
+      stat: data.avg_price || data.price_with_currency,
     },
     {
       // color: "blue",
       Icon: "/average_living_costs.svg",
       title: "Average Living Costs",
-      stat: data.avg_living_costs,
+      stat: data.avg_living_costs || data.avg_living_costs_with_currency,
     },
     // {
     //   color: "blue",
@@ -55,7 +55,7 @@ const ResultsSummaryBox = ({ data, setShowDetails }: props) => {
             />
 
             {data.avg_living_costs !== null && (
-              <ShowMoreButton onClick={() => setShowDetails('1475')} />
+              <ShowMoreButton onClick={() => setShowDetails(data.id)} />
             )}
           </Flex>
 
