@@ -4,7 +4,7 @@ import { computedInputProps } from "./FormRenderer";
 
 const SelectMultiInput = ({ onChange, ...props }: computedInputProps) => {
   return (
-    <Popover placement="bottom-start">
+    <Popover placement="top-start">
       <PopoverTrigger>
         <Input
           colorScheme="primary"
@@ -20,8 +20,8 @@ const SelectMultiInput = ({ onChange, ...props }: computedInputProps) => {
         />
       </PopoverTrigger>
 
-      <PopoverContent bgColor="#ffffff">
-        <PopoverBody>
+      <PopoverContent bgColor="#ffffff" zIndex={999}>
+        <PopoverBody >
           {props.options?.map(({ value, label }, i) => (
             <Checkbox
               colorScheme="primary"

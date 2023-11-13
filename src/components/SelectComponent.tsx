@@ -8,7 +8,7 @@ const customStyles = {
     //   borderBottom: '1px dotted pink',
       color: state.selectProps.menuColor,
       padding: 10,
-      zIndex: '999'
+      zIndex: '99999999999999'
     }),
     option: (provided: any) => ({
       ...provided,
@@ -20,23 +20,33 @@ const customStyles = {
 
 
 export default function SelectComponent({
+  id,
     allOptions,
+    defaultValue,
     getInitialDataBack = (e: any) => {
-        return e
+      return e
     }
-}: any) {
+}: {id:string,allOptions: any[] ,defaultValue: number, getInitialDataBack: (e: any) =>  void }) {
+  function getDataBack(data: any){
+    console.log('=== data backed ===', data)
+    getInitialDataBack(data)
+  }
+  console.log('=== defaultValue ===', defaultValue );
+  
   return (
     <div className="select__menu">
       <Select
-        // defaultValue={[]}
+      id={id}
+        defaultValue={allOptions[defaultValue]}
         // isMulti
         styles={customStyles}
         className="select__menu--data"
-        closeMenuOnSelect={false}
-        hideSelectedOptions={false}
-        onChange={(options: any) => {
-          console.log('=== options ===', options)
-          getInitialDataBack(options.value)
+        // // closeMenuOnSelect={false}
+        // // hideSelectedOptions={false}
+        onChange={(option: any) => {
+          
+          console.log('=== options ===', option)
+          getDataBack(option)
         }}
         options={allOptions}
         // components={{

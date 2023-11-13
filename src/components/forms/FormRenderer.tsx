@@ -1,4 +1,4 @@
-import { Box, Button, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Button, Grid, GridItem, SimpleGrid } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import React from "react";
 
@@ -48,6 +48,7 @@ export interface dynamicObject {
 }
 
 interface props {
+  googleMapsForm?:boolean,
   columns?: number,
   inputs: inputProps[];
   onSubmit: any;
@@ -59,6 +60,7 @@ interface props {
 
 const FormRenderer = ({
   columns,
+  googleMapsForm = false,
   inputs,
   onSubmit,
   data,
@@ -66,6 +68,8 @@ const FormRenderer = ({
   extraValidations,
   submitText,
 }: props) => {
+  console.log('===  google map ===', googleMapsForm);
+  
   const formik = useFormik({
     initialValues: {
       ...initialValuesGenerator({
@@ -108,7 +112,7 @@ const FormRenderer = ({
           formik.submitForm();
         }}
       >
-        <Grid templateColumns="repeat(5, 1fr)" gap={4} column={columns}>
+        {!googleMapsForm ? <Grid templateColumns="repeat(12, 1fr)" gap={4} column={columns}>
           {inputs.map(
             ({ required, min, max, minLength, maxLength, ...input }, i) => (
               <InputRenderer
@@ -135,7 +139,36 @@ const FormRenderer = ({
               {submitText || "Submit"}
             </Button>
           </GridItem>
-        </Grid>
+        </Grid> : 
+        <SimpleGrid column={columns} gap={'12px'} alignItems={'center'}>
+          {inputs.map(
+            ({ required, min, max, minLength, maxLength, ...input }, i) => (
+              <InputRenderer
+              googleMaps={true}
+                formik={formik}
+                onBlur={() => {
+                  formik?.setFieldTouched(input.name, true);
+                }}
+                value={(formik.values as dynamicObject)[input.name]}
+                onChange={formik.setFieldValue}
+                {...input}
+                key={i}
+              />
+            )
+          )}
+
+          <GridItem colSpan={12}>
+            <Button
+              w="100%"
+              colorScheme="primary"
+              type="submit"
+              borderRadius={borderRound}
+              py="7"
+            >
+              {submitText || "Submit"}
+            </Button>
+          </GridItem>
+        </SimpleGrid> }
       </form>
     </Box>
   );

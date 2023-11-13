@@ -25,21 +25,21 @@ const  ResultsSearchBox = ({
       placeholder: "Transport Stations",
       type: "selectMany",
       options: [{ value: "stops", label: "Stops" }],
-      fullWidth: true,
+      lg: 4,
     },
     {
       name: "police",
       placeholder: "Police Stations",
       type: "selectMany",
       options: [{ value: "police_stations", label: "Police Stations" }],
-      fullWidth: true,
+      lg: 4,
     },
     {
       name: "education",
       placeholder: "Education",
       type: "selectMany",
       options: [{ value: "schools", label: "Schools" }],
-      fullWidth: true,
+      lg: 4,
     },
     {
       name: "medical",
@@ -53,26 +53,26 @@ const  ResultsSearchBox = ({
         { value: "scls", label: "Supported Cate Living" },
         { value: "dentists", label: "Dentists" },
       ],
-      fullWidth: true,
+      lg: 4,
     },
     {
       name: "fireStations",
       placeholder: "Fire Stations",
       type: "selectMany",
       options: [{ value: "fire_stations", label: "Fire Stations" }],
-      fullWidth: true,
+      lg: true,
     },
     {
       name: "floods",
       title: "Flood Risk",
       type: "checkbox",
-      fullWidth: true,
+      lg: true,
     },
     {
       name: "fire_incidents",
       title: "Fire Incidents",
       type: "checkbox",
-      fullWidth: true,
+      lg: true,
     },
   ];
 
@@ -84,6 +84,7 @@ const  ResultsSearchBox = ({
           {!withoutMap && data?.length ? <>
             {/* <SimpleGrid columns={5} gap={'18px'}> */}
             <FormRenderer
+            googleMapsForm={true}
             columns={5}
               inputs={inputs}
               onSubmit={(e: object) => onSubmit(e)}
@@ -93,7 +94,8 @@ const  ResultsSearchBox = ({
             <GoogleMapComp data={data} setProperty={setProperty} />
           </>
            : (
-            <FormRenderer
+            <FormRenderer 
+              googleMapsForm={true}
               inputs={inputs}
               onSubmit={(e: object) => onSubmit(e)}
             />

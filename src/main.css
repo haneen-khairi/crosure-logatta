@@ -40,8 +40,14 @@
     letter-spacing: 0.4px;
     opacity: 0.3;
 }
+.select__menu{
+    width: 100%;
+}
 .select__menu--data > div{
     border-radius: 24px;
     border: 1px solid  #E2E8F0;
     background-color:  #FFF;
+}
+.form_search{
+    width: 40vw;
 }

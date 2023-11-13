@@ -12,11 +12,23 @@ import SelectComponent from "../../../components/SelectComponent";
 
 const ResultsChartsBox = () => {
   const [stats, setStats] = useState({ fires: [], crimes: [] });
+  const [defaultValue, setDefaultValue] = useState<number>(0)
   const [chartSelectedOptions, setChartSelectedOptions] = useState({
     fires: [],
     crimes: [],
   });
-
+  const crimesOptions = [
+    {label: 'ALL' ,  value: 'All'},
+    {label: 'Criminal damage and arson', value:'Criminal damage and arson'} , 
+    {label:'Drugs',value: 'Drugs'}, 
+    {label: 'Other crime',  value: 'Other crime'} ,
+    {label: 'theft',  value: 'theft'} ,
+    {label: 'Possession of weapons',  value: 'Possession of weapons'} ,
+    {label: 'Public order',  value: 'Public order'} ,
+    {label: 'Robbery',  value: 'Robbery'} ,
+    {label: 'Vehicle crime',  value: 'Vehicle crime'} ,
+    {label: 'Violence and sexual offences' , value: 'Violence and sexual offences'} 
+  ]
   const { postcode } = useSelector(
     (_: { data: { postcode: string } }) => _.data
   );
@@ -52,7 +64,6 @@ const ResultsChartsBox = () => {
     // options = [""],
     data = [],
   }) => (
-    console.log('=== name ===', name),
     <Fragment>
       <SimpleGrid columns={{ base: 1, md: 2 }}>
         <GridItem>
@@ -69,7 +80,9 @@ const ResultsChartsBox = () => {
 
         <GridItem>
           <SelectComponent
-          name={name}
+          id={`data_crimes_${name}`}
+          defaultValue={defaultValue}
+          // name={name}
           allOptions={
             [
               {label: 'ALL' ,  value: 'All'},
@@ -84,11 +97,15 @@ const ResultsChartsBox = () => {
               {label: 'Violence and sexual offences' , value: 'Violence and sexual offences'} 
             ]
           }
-          getInitialDataBack={(value:any) => {
+          getInitialDataBack={(data:any) => {
+            console.log('=== value ===', data)
             setChartSelectedOptions((current) => ({
               ...current,
-              [name]: value,
+              [name]: data.value,
             }))
+            let indexedCrimeMethod = crimesOptions.findIndex((option)=> option.value === data.value)
+            console.log('=== === ===', indexedCrimeMethod)
+            setDefaultValue(indexedCrimeMethod)
             // if (
             //   value.includes("All") &&
             //   !(chartSelectedOptions as any)['crimes'].includes("All")

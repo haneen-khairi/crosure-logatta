@@ -26,7 +26,7 @@ const SearchPage = () => {
 
   return (
     <SearchEngineLayout>
-      <SearchBar onSubmit={(value = "") => onSubmit(value)} />
+      <SearchBar className="" onSubmit={(value = "") => onSubmit(value)} />
 
       <SimpleGrid columns={{ base: 5, md: 5 }} gap={'12px'} mt={'24px'}>
         {Object.keys(previousSearches)
