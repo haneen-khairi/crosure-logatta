@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 
-import Navbar from "../../components/layouts/navbar";
+// import Navbar from "../../components/layouts/navbar";
 import ResultsHeader from "./header";
 
 interface props {
@@ -12,29 +12,29 @@ const ResultsLayout = ({ children }: props) => {
     <Box>
       <ResultsHeader />
 
-      <Box mt="14" px="20" py="10">
+      <Box mt="14" px="20" className="box-layout" py="10">
         {children}
       </Box>
 
-      <Navbar items={navItems} />
+      {/* <Navbar items={navItems} /> */}
     </Box>
   );
 };
 
-const navItems = [
-  {
-    label: "Inspiration",
-    href: "#",
-  },
-  {
-    label: "Find Work",
-    children: [
-      {
-        label: "Job Board",
-        href: "#",
-      },
-    ],
-  },
-];
+// const navItems = [
+//   {
+//     label: "Inspiration",
+//     href: "#",
+//   },
+//   {
+//     label: "Find Work",
+//     children: [
+//       {
+//         label: "Job Board",
+//         href: "#",
+//       },
+//     ],
+//   },
+// ];
 
 export default ResultsLayout;

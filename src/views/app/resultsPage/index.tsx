@@ -300,11 +300,11 @@ const ResultsPage = () => {
             />
           </GridItem>
 
-          <GridItem colSpan={{ base: 2, lg: 1 }}>
+          <GridItem className="order2" colSpan={{ base: 2, lg: 1 }}>
             <ResultsChartsBox />
           </GridItem>
 
-          <GridItem colSpan={{ base: 2, lg: 1 }}>
+          <GridItem className="order1" colSpan={{ base: 2, lg: 1 }}>
             <ResultsSummaryBox
               data={propertiesSummary}
               setShowDetails={setShowDetails}

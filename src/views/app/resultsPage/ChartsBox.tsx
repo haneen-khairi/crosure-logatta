@@ -78,7 +78,7 @@ const ResultsChartsBox = () => {
           </Text>
         </GridItem>
 
-        <GridItem>
+        <GridItem className="grid-column-select">
           <SelectComponent
           id={`data_crimes_${name}`}
           defaultValue={defaultValue}

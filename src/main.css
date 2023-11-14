@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+body{
+    padding-bottom: 52px;}
 .m-auto{
     margin: 0 auto;
 }
@@ -50,4 +48,29 @@
 }
 .form_search{
     width: 40vw;
+}
+.summary_box{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+@media screen and (max-width: 660px) {
+    .summary_box{
+        display: block;
+    }
+    .grid-column-select{
+        grid-column: span 2 /span 2;
+        margin-bottom: 12px;
+    }
+    .box-layout{
+        padding: 30px !important;
+    }
+    .order1{
+        order: 1;
+    }
+    .order2{
+        order: 2;
+    }
 }

@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+// import { Flex } from "@chakra-ui/react";
 import { Fragment } from "react";
 
 import { summaryProps } from ".";
@@ -45,7 +45,7 @@ const ResultsSummaryBox = ({ data, setShowDetails }: props) => {
     <CardComp
       body={
         <Fragment>
-          <Flex justifyContent="space-between" mb={3}>
+          <div className="summary_box">
             <BoxTitle
               title={
                 data.price_with_currency
@@ -54,10 +54,10 @@ const ResultsSummaryBox = ({ data, setShowDetails }: props) => {
               }
             />
 
-            {data.avg_living_costs !== null && (
+            {data.avg_living_costs_with_currency && (
               <ShowMoreButton onClick={() => setShowDetails(data.id)} />
             )}
-          </Flex>
+          </div>
 
           <StatList stats={summaryStats} />
         </Fragment>
