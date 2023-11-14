@@ -48,8 +48,6 @@ export interface dynamicObject {
 }
 
 interface props {
-  googleMapsForm?:boolean,
-  columns?: number,
   inputs: inputProps[];
   onSubmit: any;
   data?: object;
@@ -59,8 +57,6 @@ interface props {
 }
 
 const FormRenderer = ({
-  columns,
-  googleMapsForm = false,
   inputs,
   onSubmit,
   data,
@@ -68,7 +64,6 @@ const FormRenderer = ({
   extraValidations,
   submitText,
 }: props) => {
-  console.log('===  google map ===', googleMapsForm);
   
   const formik = useFormik({
     initialValues: {
@@ -112,7 +107,7 @@ const FormRenderer = ({
           formik.submitForm();
         }}
       >
-        {!googleMapsForm ? <Grid templateColumns="repeat(12, 1fr)" gap={4} column={columns}>
+        <Grid templateColumns="repeat(1, 1fr)" gap={4}>
           {inputs.map(
             ({ required, min, max, minLength, maxLength, ...input }, i) => (
               <InputRenderer
@@ -139,36 +134,7 @@ const FormRenderer = ({
               {submitText || "Submit"}
             </Button>
           </GridItem>
-        </Grid> : 
-        <SimpleGrid column={columns} gap={'12px'} alignItems={'center'}>
-          {inputs.map(
-            ({ required, min, max, minLength, maxLength, ...input }, i) => (
-              <InputRenderer
-              googleMaps={true}
-                formik={formik}
-                onBlur={() => {
-                  formik?.setFieldTouched(input.name, true);
-                }}
-                value={(formik.values as dynamicObject)[input.name]}
-                onChange={formik.setFieldValue}
-                {...input}
-                key={i}
-              />
-            )
-          )}
-
-          <GridItem colSpan={12}>
-            <Button
-              w="100%"
-              colorScheme="primary"
-              type="submit"
-              borderRadius={borderRound}
-              py="7"
-            >
-              {submitText || "Submit"}
-            </Button>
-          </GridItem>
-        </SimpleGrid> }
+        </Grid>
       </form>
     </Box>
   );

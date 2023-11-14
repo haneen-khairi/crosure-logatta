@@ -5,6 +5,7 @@ import { locationProps } from ".";
 import CardComp from "../../../components/cards";
 import FormRenderer from "../../../components/forms/FormRenderer";
 import GoogleMapComp from "../../../components/googleMap";
+import { GridItem, SimpleGrid } from "@chakra-ui/react";
 
 interface props {
   withoutMap?: boolean;
@@ -25,21 +26,21 @@ const  ResultsSearchBox = ({
       placeholder: "Transport Stations",
       type: "selectMany",
       options: [{ value: "stops", label: "Stops" }],
-      lg: 4,
+      fullWidth: true,
     },
     {
       name: "police",
       placeholder: "Police Stations",
       type: "selectMany",
       options: [{ value: "police_stations", label: "Police Stations" }],
-      lg: 4,
+      fullWidth: true,
     },
     {
       name: "education",
       placeholder: "Education",
       type: "selectMany",
       options: [{ value: "schools", label: "Schools" }],
-      lg: 4,
+      fullWidth: true,
     },
     {
       name: "medical",
@@ -53,26 +54,26 @@ const  ResultsSearchBox = ({
         { value: "scls", label: "Supported Cate Living" },
         { value: "dentists", label: "Dentists" },
       ],
-      lg: 4,
+      fullWidth: true,
     },
     {
       name: "fireStations",
       placeholder: "Fire Stations",
       type: "selectMany",
       options: [{ value: "fire_stations", label: "Fire Stations" }],
-      lg: true,
+      fullWidth: true,
     },
     {
       name: "floods",
       title: "Flood Risk",
       type: "checkbox",
-      lg: true,
+      fullWidth: true,
     },
     {
       name: "fire_incidents",
       title: "Fire Incidents",
       type: "checkbox",
-      lg: true,
+      fullWidth: true,
     },
   ];
 
@@ -81,21 +82,21 @@ const  ResultsSearchBox = ({
       title="Select Properties"
       body={
         <Fragment>
-          {!withoutMap && data?.length ? <>
-            {/* <SimpleGrid columns={5} gap={'18px'}> */}
-            <FormRenderer
-            googleMapsForm={true}
-            columns={5}
-              inputs={inputs}
-              onSubmit={(e: object) => onSubmit(e)}
-            />
-        {/* </SimpleGrid> */}
+          {!withoutMap && data?.length ? (
+            <SimpleGrid columns={{ base: 1, lg: 4 }} gap={7}>
+              <GridItem zIndex={101}>
+                <FormRenderer
+                  inputs={inputs}
+                  onSubmit={(e: object) => onSubmit(e)}
+                />
+              </GridItem>
 
-            <GoogleMapComp data={data} setProperty={setProperty} />
-          </>
-           : (
+              <GridItem colSpan={3} zIndex={100}>
+                <GoogleMapComp data={data} setProperty={setProperty} />
+              </GridItem>
+            </SimpleGrid>
+          ) : (
             <FormRenderer 
-              googleMapsForm={true}
               inputs={inputs}
               onSubmit={(e: object) => onSubmit(e)}
             />
