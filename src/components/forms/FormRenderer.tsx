@@ -1,4 +1,4 @@
-import { Box, Button, Grid, GridItem, SimpleGrid } from "@chakra-ui/react";
+import { Box, Button, Grid, GridItem } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import React from "react";
 
