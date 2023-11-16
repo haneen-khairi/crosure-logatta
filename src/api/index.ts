@@ -8,7 +8,7 @@ import { refreshToken } from "./user";
 
 const baseURL =
   import.meta.env.REACT_APP_BACKEND_URL ||
-  "https://crosure-django-pw2by.ondigitalocean.app";
+  "http://46.101.199.247";
 
 const service = axios.create({
   baseURL,

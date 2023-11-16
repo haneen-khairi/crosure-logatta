@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 body{
-    padding-bottom: 52px;}
+    padding-bottom: 52px;
+}
 .m-auto{
     margin: 0 auto;
 }
@@ -73,7 +74,17 @@ body{
     .order2{
         order: 2;
     }
+    .PopoverContent {
+        width: 100%;
+        min-width: 80%;
+        max-width: 80%;
+    }
+    .chakra-popover__popper{
+        /* inset: unset !important; */
+        left: calc(30px + 1.25rem);
+        max-width: 70vw;
+    }
 }
-.css-1oliy19 { 
-    isolation: unset!important;
+.chakra-input__group{ 
+    isolation: unset !important;
 }
