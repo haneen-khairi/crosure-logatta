@@ -74,3 +74,6 @@ body{
         order: 2;
     }
 }
+.css-1oliy19 { 
+    isolation: unset!important;
+}
