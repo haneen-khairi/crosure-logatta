@@ -8,7 +8,7 @@ import CardComp from "../../../components/cards";
 import TabsComp from "../../../components/tabs";
 import BoxTitle from "../../../components/typography/BoxTitle";
 import AreaChart from "./AreaChart";
-import SelectComponent from "../../../components/SelectComponent";
+// import SelectComponent from "../../../components/SelectComponent";
 import InputTypePicker from "../../../components/forms/InputTypePicker";
 
 const ResultsChartsBox = () => {
@@ -25,28 +25,28 @@ const ResultsChartsBox = () => {
       }
     
   ] });
-  const [defaultValue, setDefaultValue] = useState<number>(0)
+  // const [defaultValue, setDefaultValue] = useState<number>(0)
   const [chartSelectedOptions, setChartSelectedOptions] = useState({
     fires: [],
     crimes: [],
   });
-  const crimesOptions = [
-    {label: 'Criminal damage and arson', value:'Criminal damage and arson'} , 
-    {label:'Drugs',value: 'Drugs'}, 
-    {label: 'Other crime',  value: 'Other crime'} ,
-    {label: 'theft',  value: 'theft'} ,
-    {label: 'Possession of weapons',  value: 'Possession of weapons'} ,
-    {label: 'Public order',  value: 'Public order'} ,
-    {label: 'Robbery',  value: 'Robbery'} ,
-    {label: 'Vehicle crime',  value: 'Vehicle crime'} ,
-    {label: 'Violence and sexual offences' , value: 'Violence and sexual offences'} 
-  ]
-  const incidentsOptions = [
-    {label: 'Chimney fire', value: 'Chimney fire'},
-    {label: 'Secondary Fire - accidental', value: 'Secondary Fire - accidental'},
-    {label: 'Secondary Fire - deliberate', value: 'Secondary Fire - deliberate'},
-    {label: 'Primary fire - buildings', value: 'Primary fire - buildings'}
-  ]
+  // const crimesOptions = [
+  //   {label: 'Criminal damage and arson', value:'Criminal damage and arson'} , 
+  //   {label:'Drugs',value: 'Drugs'}, 
+  //   {label: 'Other crime',  value: 'Other crime'} ,
+  //   {label: 'theft',  value: 'theft'} ,
+  //   {label: 'Possession of weapons',  value: 'Possession of weapons'} ,
+  //   {label: 'Public order',  value: 'Public order'} ,
+  //   {label: 'Robbery',  value: 'Robbery'} ,
+  //   {label: 'Vehicle crime',  value: 'Vehicle crime'} ,
+  //   {label: 'Violence and sexual offences' , value: 'Violence and sexual offences'} 
+  // ]
+  // const incidentsOptions = [
+  //   {label: 'Chimney fire', value: 'Chimney fire'},
+  //   {label: 'Secondary Fire - accidental', value: 'Secondary Fire - accidental'},
+  //   {label: 'Secondary Fire - deliberate', value: 'Secondary Fire - deliberate'},
+  //   {label: 'Primary fire - buildings', value: 'Primary fire - buildings'}
+  // ]
   const { postcode } = useSelector(
     (_: { data: { postcode: string } }) => _.data
   );

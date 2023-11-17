@@ -1,7 +1,7 @@
 import { IconButton } from "@chakra-ui/react";
 import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { GoogleMap, OverlayView, Polygon, useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap, OverlayView, useJsApiLoader } from "@react-google-maps/api";
 import React from "react";
 
 import { borderHalfRound } from "../../utils/consts";

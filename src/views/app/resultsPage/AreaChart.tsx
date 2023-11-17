@@ -1,12 +1,8 @@
 import Chart from "react-apexcharts";
-import React, { useState } from "react";
+import React from "react";
 
 const AreaChart = React.memo(({ data, type }: { data: any, type: string }) => {
-  const [dataChart, setDataChart] = useState<any>({
-    options: {},
-    series: [],
-
-  })
+ 
 
   // const dataArray: any[] = [
   //   {
