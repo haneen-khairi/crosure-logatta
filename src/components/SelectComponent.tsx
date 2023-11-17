@@ -22,23 +22,30 @@ const customStyles = {
 export default function SelectComponent({
   id,
     allOptions,
-    defaultValue,
+    // defaultValue,
+    isMulti,
     getInitialDataBack = (e: any) => {
       return e
     }
-}: {id:string,allOptions: any[] ,defaultValue: number, getInitialDataBack: (e: any) =>  void }) {
+}: {id:string,
+  allOptions: any[] ,
+  // defaultValue: number, 
+  getInitialDataBack: (e: any) =>  void,
+  isMulti?: boolean
+} , 
+) {
   function getDataBack(data: any){
     console.log('=== data backed ===', data)
     getInitialDataBack(data)
   }
-  console.log('=== defaultValue ===', defaultValue );
+  // console.log('=== defaultValue ===', defaultValue );
   
   return (
     <div className="select__menu">
       <Select
       id={id}
-        defaultValue={allOptions[defaultValue]}
-        // isMulti
+        // defaultValue={allOptions[0]}
+        isMulti={isMulti}
         styles={customStyles}
         className="select__menu--data"
         // // closeMenuOnSelect={false}

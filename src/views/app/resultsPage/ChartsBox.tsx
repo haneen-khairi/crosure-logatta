@@ -9,16 +9,28 @@ import TabsComp from "../../../components/tabs";
 import BoxTitle from "../../../components/typography/BoxTitle";
 import AreaChart from "./AreaChart";
 import SelectComponent from "../../../components/SelectComponent";
+import InputTypePicker from "../../../components/forms/InputTypePicker";
 
 const ResultsChartsBox = () => {
-  const [stats, setStats] = useState({ fires: [], crimes: [] });
+  const [stats, setStats] = useState({ fires: [
+    {
+      type: "",
+      stats : []
+    }
+  ], crimes: [
+    
+      {
+        type: "",
+        stats : []
+      }
+    
+  ] });
   const [defaultValue, setDefaultValue] = useState<number>(0)
   const [chartSelectedOptions, setChartSelectedOptions] = useState({
     fires: [],
     crimes: [],
   });
   const crimesOptions = [
-    {label: 'ALL' ,  value: 'All'},
     {label: 'Criminal damage and arson', value:'Criminal damage and arson'} , 
     {label:'Drugs',value: 'Drugs'}, 
     {label: 'Other crime',  value: 'Other crime'} ,
@@ -28,6 +40,12 @@ const ResultsChartsBox = () => {
     {label: 'Robbery',  value: 'Robbery'} ,
     {label: 'Vehicle crime',  value: 'Vehicle crime'} ,
     {label: 'Violence and sexual offences' , value: 'Violence and sexual offences'} 
+  ]
+  const incidentsOptions = [
+    {label: 'Chimney fire', value: 'Chimney fire'},
+    {label: 'Secondary Fire - accidental', value: 'Secondary Fire - accidental'},
+    {label: 'Secondary Fire - deliberate', value: 'Secondary Fire - deliberate'},
+    {label: 'Primary fire - buildings', value: 'Primary fire - buildings'}
   ]
   const { postcode } = useSelector(
     (_: { data: { postcode: string } }) => _.data
@@ -41,8 +59,21 @@ const ResultsChartsBox = () => {
       types: chartSelectedOptions.crimes,
     }).then((crimes: any) => {
       // @ts-ignore
-      console.log('=== crimes ===', crimes),
-      setStats((current) => ({ ...current, crimes }));
+      console.log('=== crimes ===',crimes)
+      if(crimes[0].type === undefined){
+        setStats((current) => ({ 
+          ...current, 
+          crimes: [
+            {
+              type: 'all' , 
+              stats: crimes
+            }
+          ]
+        }));
+      }else{
+        setStats((current) => ({ ...current, crimes }));
+
+      }
     });
 
     StatsAPI.fires({
@@ -50,62 +81,71 @@ const ResultsChartsBox = () => {
       start_year: 2010,
       count: 13,
       types: chartSelectedOptions.fires,
-    }).then((fires) => {
+    }).then((fires: any) => {
       // @ts-ignore
-      setStats((current) => ({ ...current, fires }));
+      console.log('=== fires ===', fires)
+
+      if(fires[0].type === undefined){
+        setStats((current) => ({ 
+          ...current, 
+          fires: [
+            {
+            type: 'all' , 
+            stats: fires
+            }
+          ]
+        }));
+      }else{
+        setStats((current) => ({ ...current, fires }));
+
+      }
+      console.log('=== fires ===',stats)
 
     });
+    console.log('=== stats ===', stats)
   }, [postcode, chartSelectedOptions]);
-
   const ChartCard = ({
     title = "",
     name = "",
     label = "",
-    // options = [""],
-    data = [],
-  }) => (
+    options = [""],
+    data,
+  }: any) => (
     <Fragment>
       <SimpleGrid columns={{ base: 1, md: 2 }}>
         <GridItem>
           <BoxTitle title={title} />
           <Text my={4}>
-            {Object.values(data)?.reduce(
+            {/* {console.log('=== stats =====', Object.values(data))} */}
+            {/* {Object.values(data)?.reduce(
               // @ts-ignore
               (final = 0, current = 0) => (final += current),
               0
-            )}{" "}
+            )}{" "} */}
             {label}
           </Text>
         </GridItem>
 
         <GridItem className="grid-column-select">
-          <SelectComponent
+          {/* <SelectComponent
           id={`data_crimes_${name}`}
-          defaultValue={defaultValue}
+          // defaultValue={defaultValue}
           // name={name}
           allOptions={
-            [
-              {label: 'ALL' ,  value: 'All'},
-              {label: 'Criminal damage and arson', value:'Criminal damage and arson'} , 
-              {label:'Drugs',value: 'Drugs'}, 
-              {label: 'Other crime',  value: 'Other crime'} ,
-              {label: 'theft',  value: 'theft'} ,
-              {label: 'Possession of weapons',  value: 'Possession of weapons'} ,
-              {label: 'Public order',  value: 'Public order'} ,
-              {label: 'Robbery',  value: 'Robbery'} ,
-              {label: 'Vehicle crime',  value: 'Vehicle crime'} ,
-              {label: 'Violence and sexual offences' , value: 'Violence and sexual offences'} 
-            ]
+            name === 'crimes' ? crimesOptions : incidentsOptions
           }
+          isMulti={true}
           getInitialDataBack={(data:any) => {
-            console.log('=== value ===', data)
+            let dataConvertedIntoStringArray = data.map((item: any) => item.value)
+            console.log('=== value ===', dataConvertedIntoStringArray)
+            console.log('=== name ===', name)
             setChartSelectedOptions((current) => ({
               ...current,
-              [name]: data.value,
+              [name]: dataConvertedIntoStringArray,
             }))
-            let indexedCrimeMethod = crimesOptions.findIndex((option)=> option.value === data.value)
-            console.log('=== === ===', indexedCrimeMethod)
-            setDefaultValue(indexedCrimeMethod)
+            // let indexedCrimeMethod = crimesOptions.findIndex((option)=> option.value === data.value)
+            // console.log('=== === ===', indexedCrimeMethod)
+            // setDefaultValue(indexedCrimeMethod)
             // if (
             //   value.includes("All") &&
             //   !(chartSelectedOptions as any)['crimes'].includes("All")
@@ -121,43 +161,32 @@ const ResultsChartsBox = () => {
             //   }));
             // }
           }}
-          />
-          {/* <InputTypePicker
+          /> */}
+          <InputTypePicker
+          
             name={name}
             placeholder={"Type of " + label}
             type="selectMany"
             value={(chartSelectedOptions as any)[name]}
             onChange={(name = "", value = [""]) => {
-              if (
-                value.includes("All") &&
-                !(chartSelectedOptions as any)[name].includes("All")
-              ) {
+                console.log('=== changed ===', value)
                 setChartSelectedOptions((current) => ({
                   ...current,
-                  [name]: ["All"],
+                  [name]: value
                 }));
-              } else {
-                setChartSelectedOptions((current) => ({
-                  ...current,
-                  [name]: value.filter((v) => v !== "All"),
-                }));
-              }
+              
             }}
             options={[
-              {
-                value: "All",
-                label: "All",
-              },
               ...options.map((option = "") => ({
                 value: option,
                 label: option,
               })),
             ]}
-          /> */}
+          />
         </GridItem>
 
         <GridItem colSpan={2}>
-          <AreaChart data={data} />
+          <AreaChart data={data} type={name} />
         </GridItem>
       </SimpleGrid>
     </Fragment>
@@ -172,17 +201,17 @@ const ResultsChartsBox = () => {
           name="crimes"
           label="Crimes"
           data={stats.crimes}
-          // options={[
-          //   "Criminal damage and arson",
-          //   "Drugs",
-          //   "Other crime",
-          //   "theft",
-          //   "Possession of weapons",
-          //   "Public order",
-          //   "Robbery",
-          //   "Vehicle crime",
-          //   "Violence and sexual offences",
-          // ]}
+          options={[
+            "Criminal damage and arson",
+            "Drugs",
+            "Other crime",
+            "theft",
+            "Possession of weapons",
+            "Public order",
+            "Robbery",
+            "Vehicle crime",
+            "Violence and sexual offences",
+          ]}
         />
       ),
     },
@@ -194,12 +223,12 @@ const ResultsChartsBox = () => {
           name="fires"
           label="Fire Incidents"
           data={stats.fires}
-          // options={[
-          //   "Chimney fire",
-          //   "Secondary Fire - accidental",
-          //   "Secondary Fire - deliberate",
-          //   "Primary fire - buildings",
-          // ]}
+          options={[
+            "Chimney fire",
+            "Secondary Fire - accidental",
+            "Secondary Fire - deliberate",
+            "Primary fire - buildings",
+          ]}
         />
       ),
     },
