@@ -186,7 +186,7 @@ const ResultsChartsBox = () => {
         </GridItem>
 
         <GridItem colSpan={2}>
-          <AreaChart data={data} type={name} />
+          <AreaChart data={data} />
         </GridItem>
       </SimpleGrid>
     </Fragment>

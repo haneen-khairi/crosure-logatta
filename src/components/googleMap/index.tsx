@@ -20,6 +20,7 @@ interface props {
 }
 
 const GoogleMapComp = React.memo(({ data, setProperty }: props) => {
+  console.log('=== google map ===', data)
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyAE-OzpZjuJkIeVxRJ2J9gGmrCgtYdftbk",
@@ -46,19 +47,19 @@ const GoogleMapComp = React.memo(({ data, setProperty }: props) => {
     },
     [data]
   );
-    // function getDataClassfied(array: any){
-    //   console.log('=== data ===', array)
-    //   return array?.map((item: any) => {
-    //     if (item.type === 'flood' && item.outer_ring_coords) {
-    //       return item.outer_ring_coords.map((coords: any) => ({
-    //         lat: coords[0],
-    //         lng: coords[1]
-    //       }));
-    //     }
-    //   }).filter((poly: any) => poly.length > 0);
-    // }
-    // const points = getDataClassfied(data)
-    // console.log('=== points ===', points)
+    function getDataClassfied(array: any){
+      console.log('=== data ===', array)
+      return array?.map((item: any) => {
+        if (item.type === 'flood' && item.outer_ring_coords) {
+          return item.outer_ring_coords.map((coords: any) => ({
+            lat: coords[0],
+            lng: coords[1]
+          }));
+        }
+      }).filter((poly: any) => poly?.length > 0);
+    }
+    const points = getDataClassfied(data)
+    console.log('=== points ===', points.flat())
   const onUnmount = React.useCallback(() => {
     setMap(null);
   }, [data]);
@@ -71,7 +72,7 @@ const GoogleMapComp = React.memo(({ data, setProperty }: props) => {
       onLoad={onLoad}
       onUnmount={onUnmount}
     >
-      {data?.map((prop, i) => {
+      {points.flat().concat(data)?.map((prop: any, i: any) => {
         const { lat, lng, type } = prop;
 
         const typ = locationTypes.find(({ name }) => name === type);

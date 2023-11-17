@@ -1,7 +1,7 @@
 import Chart from "react-apexcharts";
 import React from "react";
 
-const AreaChart = React.memo(({ data, type }: { data: any, type: string }) => {
+const AreaChart = React.memo(({ data }: { data: any }) => {
  
 
   
@@ -17,7 +17,6 @@ const AreaChart = React.memo(({ data, type }: { data: any, type: string }) => {
       // Process each type of incident
       inputData?.forEach((type: any) => {
           const seriesData = type.stats.map((stat: any) => {
-            console.log('= input data =', stat)
             if(stat.stats !== undefined){
               return stat.stats
             }else{
@@ -37,7 +36,6 @@ const AreaChart = React.memo(({ data, type }: { data: any, type: string }) => {
   
   // Transforming the data
   const transformedData = transformData(data);
-  console.log('=== transformedData ===',transformedData, type);
   // setDataChart(example)
   
   return (
