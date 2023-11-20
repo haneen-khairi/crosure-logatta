@@ -46,6 +46,7 @@ export interface detailsProps {
   lat: string;
   lng: string;
   property_type: string;
+  // coordinates: any;
   bedrooms: number;
   bathrooms: number;
   condition: string;
@@ -56,6 +57,7 @@ export interface detailsProps {
 
 interface resProps {
   properties_summary: summaryProps;
+  coordinates: [];
   clinics: { results: locationProps[] };
   dentists: { results: locationProps[] };
   fire_incidents: { results: locationProps[] };
@@ -95,7 +97,7 @@ const ResultsPage = () => {
   const { postcode } = useSelector(
     (_: { data: { postcode: string } }) => _.data
   );
-
+  const [coordinates, setCoordinates] = useState([])
   const [locations, setLocations] = useState([{ id: 0, lat: "", lng: "" }]);
   const [showDetails, setShowDetails] = useState(0);
 
@@ -132,6 +134,8 @@ const ResultsPage = () => {
   const getData = ({ places }: searchProps) => {
     // @ts-ignore
     SearchAPI.search(postcode, places).then((res: resProps) => {
+      console.log('=== search ===', res)
+      setCoordinates(res.coordinates)
       // const newData = Object.keys(res).map((key) => ({
       //   type: key,
       //   ...res[key],
@@ -244,11 +248,11 @@ const ResultsPage = () => {
     if (showDetails) {
       // @ts-ignore
       PropertyAPI.details(showDetails).then((res: detailsProps) => {
+
         setPropertyDetails(res);
       });
     }
-    console.log('=== show details ===', showDetails);
-    
+
   }, [showDetails]);
 
   const resetProperty = () => {
@@ -294,6 +298,7 @@ const ResultsPage = () => {
         <SimpleGrid columns={{ base: 1, lg: 2 }} gap={7}>
           <GridItem colSpan={2}>
             <ResultsSearchBox
+              coordinates={coordinates}
               data={locations}
               setProperty={setPropertiesSummary}
               onSubmit={onSearchSubmit}

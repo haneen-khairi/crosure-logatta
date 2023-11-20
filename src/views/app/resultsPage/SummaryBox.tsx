@@ -13,7 +13,7 @@ interface props {
 }
 
 const ResultsSummaryBox = ({ data, setShowDetails }: props) => {
-  console.log('=== ResultsSummaryBox ===', data);
+  // console.log('=== ResultsSummaryBox ===', data);
   
   const summaryStats = [
     {
