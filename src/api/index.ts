@@ -8,7 +8,7 @@ import { refreshToken } from "./user";
 
 const baseURL =
   import.meta.env.REACT_APP_BACKEND_URL ||
-  "https://46.101.199.247";
+  "https://crosure.logatta.com";
 
 const service = axios.create({
   baseURL,

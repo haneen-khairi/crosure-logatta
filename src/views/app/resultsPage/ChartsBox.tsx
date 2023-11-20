@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 import * as StatsAPI from "../../../api/search/stats";
 import CardComp from "../../../components/cards";
-// import InputTypePicker from "../../../components/forms/InputTypePicker";
 import TabsComp from "../../../components/tabs";
 import BoxTitle from "../../../components/typography/BoxTitle";
 import AreaChart from "./AreaChart";
@@ -27,8 +26,23 @@ const ResultsChartsBox = () => {
   ] });
   // const [defaultValue, setDefaultValue] = useState<number>(0)
   const [chartSelectedOptions, setChartSelectedOptions] = useState({
-    fires: [],
-    crimes: [],
+    fires: [
+      "Chimney fire",
+      "Secondary Fire - accidental",
+      "Secondary Fire - deliberate",
+      "Primary fire - buildings"
+    ],
+    crimes: [
+      "Criminal damage and arson",
+      "Drugs",
+      "Other crime",
+      "theft",
+      "Possession of weapons",
+      "Public order",
+      "Robbery",
+      "Vehicle crime",
+      "Violence and sexual offences"
+    ],
   });
   // const crimesOptions = [
   //   {label: 'Criminal damage and arson', value:'Criminal damage and arson'} , 
@@ -227,7 +241,7 @@ const ResultsChartsBox = () => {
             "Chimney fire",
             "Secondary Fire - accidental",
             "Secondary Fire - deliberate",
-            "Primary fire - buildings",
+            "Primary fire - buildings"
           ]}
         />
       ),
