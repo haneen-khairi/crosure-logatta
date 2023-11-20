@@ -17,7 +17,7 @@ const containerStyle = {
 interface props {
   data?: locationProps[];
   setProperty?: any;
-  coordinates: number[]
+  coordinates?: number[]
 }
 
 const GoogleMapComp = React.memo(({ data, setProperty, coordinates }: props) => {
@@ -69,7 +69,7 @@ const GoogleMapComp = React.memo(({ data, setProperty, coordinates }: props) => 
   return isLoaded && data?.length ? (
     <GoogleMap
       mapContainerStyle={containerStyle}
-      center={{ lat: coordinates[0], lng: coordinates[1] }}
+      center={{ lat: coordinates?.[0] || parseFloat(data[0]?.lat) , lng:  coordinates?.[1] || parseFloat(data[0]?.lng) }}
       zoom={9}
       onLoad={onLoad}
       onUnmount={onUnmount}

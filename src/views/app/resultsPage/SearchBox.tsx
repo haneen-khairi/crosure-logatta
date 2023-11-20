@@ -12,7 +12,7 @@ interface props {
   data?: locationProps[];
   setProperty?: any;
   onSubmit?: any;
-  coordinates: number[];
+  coordinates?: number[];
 }
 
 const  ResultsSearchBox = ({
