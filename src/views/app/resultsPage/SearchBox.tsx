@@ -12,6 +12,7 @@ interface props {
   data?: locationProps[];
   setProperty?: any;
   onSubmit?: any;
+  coordinates: number[];
 }
 
 const  ResultsSearchBox = ({
@@ -19,7 +20,9 @@ const  ResultsSearchBox = ({
   data,
   setProperty,
   onSubmit,
+  coordinates
 }: props) => {
+  console.log('=== coordinates ===', coordinates)
   const inputs = [
     {
       name: "transporation",
@@ -92,7 +95,7 @@ const  ResultsSearchBox = ({
               </GridItem>
 
               <GridItem colSpan={3} zIndex={100}>
-                <GoogleMapComp data={data} setProperty={setProperty} />
+                <GoogleMapComp coordinates={coordinates} data={data} setProperty={setProperty} />
               </GridItem>
             </SimpleGrid>
           ) : (
