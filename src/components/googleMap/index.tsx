@@ -1,7 +1,7 @@
 import { IconButton } from "@chakra-ui/react";
 import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { GoogleMap, OverlayView, useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap, OverlayView, Polyline, useJsApiLoader } from "@react-google-maps/api";
 import React from "react";
 
 import { borderHalfRound } from "../../utils/consts";
@@ -21,13 +21,13 @@ interface props {
 }
 
 const GoogleMapComp = React.memo(({ data, setProperty, coordinates }: props) => {
-  // console.log('=== google map ===', data)
+  console.log('=== google map ===', data)
   // console.log('=== coordinates google map ===', coordinates)
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyAE-OzpZjuJkIeVxRJ2J9gGmrCgtYdftbk",
   });
-
+  
   const center = {
     lat: 51.499075,
     lng: -0.124742,
@@ -62,6 +62,10 @@ const GoogleMapComp = React.memo(({ data, setProperty, coordinates }: props) => 
     }
     const points = getDataClassfied(data)
     console.log('=== points ===', points.flat())
+      // Create an array of LatLng objects from the points
+  const latLngArray = points.flat().map((point: any) => {
+    return { lat: point.lat, lng: point.lng };
+  });
   const onUnmount = React.useCallback(() => {
     setMap(null);
   }, [data]);
@@ -74,26 +78,36 @@ const GoogleMapComp = React.memo(({ data, setProperty, coordinates }: props) => 
       onLoad={onLoad}
       onUnmount={onUnmount}
     >
-      {points.flat().concat(data)?.map((prop: any, i: any) => {
-        const { lat, lng, type } = prop;
-
+            {/* Render Polyline to connect the points */}
+      <Polyline
+        path={latLngArray}
+        options={{
+          strokeColor: 'blue', // Customize the color of the line as needed
+          strokeOpacity: 1.0,
+          strokeWeight: 2, // Customize the width of the line as needed
+        }}
+      />
+      {data?.map((prop: any, i: any) => {
+        const { lat, lng, type} = prop;
         const typ = locationTypes.find(({ name }) => name === type);
 
         return (
           <OverlayView
             position={{
-              lat: parseFloat(lat),
-              lng: parseFloat(lng),
+              lat,
+              lng,
             }}
             mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
             key={i}
           >
             <IconButton
+
+            className="icon__property"
               isRound
               variant="solid"
               colorScheme={typ?.color || "primary"}
               aria-label="Done"
-              fontSize="20px"
+              fontSize="15px"
               onClick={() =>
                 type === "property"
                   ? setProperty(prop)

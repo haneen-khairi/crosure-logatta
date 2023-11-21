@@ -88,3 +88,11 @@ body{
 .chakra-input__group{ 
     isolation: unset !important;
 }
+/* .icon__property{
+    min-width: 10px !important;
+    width: 10px;
+    height: 10px !important;
+}
+.icon__property svg{
+    height: 10px;
+} */
