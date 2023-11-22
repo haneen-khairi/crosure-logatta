@@ -1,4 +1,4 @@
-import { GridItem, SimpleGrid } from "@chakra-ui/react";
+import { GridItem, SimpleGrid, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import { faHouseMedical } from "@fortawesome/free-solid-svg-icons";
 import { faBus } from "@fortawesome/free-solid-svg-icons/faBus";
 import { faFire } from "@fortawesome/free-solid-svg-icons/faFire";
@@ -97,7 +97,7 @@ const ResultsPage = () => {
   const { postcode } = useSelector(
     (_: { data: { postcode: string } }) => _.data
   );
-  const [coordinates, setCoordinates] = useState([])
+  const [coordinates, setCoordinates] = useState([]);
   const [locations, setLocations] = useState([{ id: 0, lat: "", lng: "" }]);
   const [showDetails, setShowDetails] = useState(0);
 
@@ -132,10 +132,11 @@ const ResultsPage = () => {
   );
 
   const getData = ({ places }: searchProps) => {
+    console.log("=== places ===", places);
     // @ts-ignore
     SearchAPI.search(postcode, places).then((res: resProps) => {
-      console.log('=== search ===', res)
-      setCoordinates(res.coordinates)
+      console.log("=== search init ===", res);
+      setCoordinates(res.coordinates);
       // const newData = Object.keys(res).map((key) => ({
       //   type: key,
       //   ...res[key],
@@ -241,18 +242,18 @@ const ResultsPage = () => {
   };
 
   useEffect(() => {
-    getData({});
+    getData({
+      places: ["stops", "fire_incidents", "schools", "police_stations", "stops", "fire_stations"]
+    });
   }, [postcode]);
 
   useEffect(() => {
     if (showDetails) {
       // @ts-ignore
       PropertyAPI.details(showDetails).then((res: detailsProps) => {
-
         setPropertyDetails(res);
       });
     }
-
   }, [showDetails]);
 
   const resetProperty = () => {
@@ -264,7 +265,12 @@ const ResultsPage = () => {
   const onSearchSubmit = (places: searchProps) => {
     const placesArray = Object.keys(places).reduce(
       (final: string[], key: string) =>
-        key === "fire_incidents" || key === "floods"
+        key === "fire_incidents" ||
+          key === "floods" ||
+          key === "schools" ||
+          key === "police_stations" ||
+          key === "stops" ||
+          key === "fire_stations"
           ? (places as any)[key]
             ? [...final, key]
             : final
@@ -304,7 +310,41 @@ const ResultsPage = () => {
               onSubmit={onSearchSubmit}
             />
           </GridItem>
+          <GridItem colSpan={2}>
+            <SimpleGrid columns={{ base: 1, lg: 2 }}>
+              <TableContainer>
+                <Table variant='striped' colorScheme='teal'>
+                  <TableCaption>Imperial to metric conversion factors</TableCaption>
+                  <Thead>
+                    <Tr>
+                      <Th>To convert</Th>
+                      <Th>into</Th>
+                      <Th isNumeric>multiply by</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    <Tr>
+                      <Td>inches</Td>
+                      <Td>millimetres (mm)</Td>
+                      <Td isNumeric>25.4</Td>
+                    </Tr>
+                    <Tr>
+                      <Td>feet</Td>
+                      <Td>centimetres (cm)</Td>
+                      <Td isNumeric>30.48</Td>
+                    </Tr>
+                    <Tr>
+                      <Td>yards</Td>
+                      <Td>metres (m)</Td>
+                      <Td isNumeric>0.91444</Td>
+                    </Tr>
+                  </Tbody>
 
+                </Table>
+              </TableContainer>
+
+            </SimpleGrid>
+          </GridItem>
           <GridItem className="order2" colSpan={{ base: 2, lg: 1 }}>
             <ResultsChartsBox />
           </GridItem>

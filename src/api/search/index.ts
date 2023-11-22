@@ -1,7 +1,8 @@
 import api from "..";
 
 const search = (postcode: string, places: string[]) =>
-  api.post(`core/${postcode}/`, {
+  api.post(`core/places/`, {
+    postcode,
     places,
   });
 

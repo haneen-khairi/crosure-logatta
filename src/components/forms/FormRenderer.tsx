@@ -110,6 +110,7 @@ const FormRenderer = ({
         <Grid templateColumns="repeat(1, 1fr)" gap={4}>
           {inputs.map(
             ({ required, min, max, minLength, maxLength, ...input }, i) => (
+              
               <InputRenderer
                 formik={formik}
                 onBlur={() => {
