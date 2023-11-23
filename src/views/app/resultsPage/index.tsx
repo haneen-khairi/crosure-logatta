@@ -1,15 +1,7 @@
 import {
   Button,
   GridItem,
-  SimpleGrid,
-  Table,
-  TableCaption,
-  TableContainer,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
+  SimpleGrid
 } from "@chakra-ui/react";
 import { faHouseMedical } from "@fortawesome/free-solid-svg-icons";
 import { faBus } from "@fortawesome/free-solid-svg-icons/faBus";
@@ -35,9 +27,9 @@ import ResultsDetailsBox from "./DetailsBox";
 import MapPicturesBox from "./MapPicturesBox";
 import ResultsSearchBox from "./SearchBox";
 import ResultsSummaryBox from "./SummaryBox";
-import ShowMoreButton from "../../../components/buttons/ShowMore";
+// import ShowMoreButton from "../../../components/buttons/ShowMore";
 import TableComponent from "../../../components/TableComponent";
-import axios from "axios";
+// import axios from "axios";
 
 export interface locationProps {
   id: number;

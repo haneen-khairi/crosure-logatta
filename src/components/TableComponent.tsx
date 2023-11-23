@@ -1,4 +1,4 @@
-import { Table, TableContainer, Thead, Tbody , Tr, Th , Td, TableCaption } from '@chakra-ui/react'
+import { Table, TableContainer, Thead, Tbody , Tr, Th , Td } from '@chakra-ui/react'
 import ShowMoreButton from './buttons/ShowMore'
 
 // export default function TableComponent({
