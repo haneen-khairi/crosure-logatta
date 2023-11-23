@@ -11,5 +11,10 @@ const searchHistory = () =>
     by: "search_date",
     count: 5,
   });
+  const Download = (postcode: string, places: any[]) =>
+  api.post(`core/places/download/`, {
+    postcode,
+    places
+  });
 
-export { search, searchHistory };
+export { search, searchHistory , Download};

@@ -1,4 +1,16 @@
-import { GridItem, SimpleGrid, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import {
+  Button,
+  GridItem,
+  SimpleGrid,
+  Table,
+  TableCaption,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
 import { faHouseMedical } from "@fortawesome/free-solid-svg-icons";
 import { faBus } from "@fortawesome/free-solid-svg-icons/faBus";
 import { faFire } from "@fortawesome/free-solid-svg-icons/faFire";
@@ -23,6 +35,9 @@ import ResultsDetailsBox from "./DetailsBox";
 import MapPicturesBox from "./MapPicturesBox";
 import ResultsSearchBox from "./SearchBox";
 import ResultsSummaryBox from "./SummaryBox";
+import ShowMoreButton from "../../../components/buttons/ShowMore";
+import TableComponent from "../../../components/TableComponent";
+import axios from "axios";
 
 export interface locationProps {
   id: number;
@@ -98,7 +113,9 @@ const ResultsPage = () => {
     (_: { data: { postcode: string } }) => _.data
   );
   const [coordinates, setCoordinates] = useState([]);
-  const [locations, setLocations] = useState([{ id: 0, lat: "", lng: "" }]);
+  const [locations, setLocations] = useState([
+    { id: 0, lat: "", lng: "", type: "" },
+  ]);
   const [showDetails, setShowDetails] = useState(0);
 
   const [collectivePropertiesSummary, setCollectivePropertiesSummary] =
@@ -235,7 +252,7 @@ const ResultsPage = () => {
         ...scls,
         ...stops,
       ]);
-
+      
       setPropertiesSummary(res.properties_summary);
       setCollectivePropertiesSummary(res.properties_summary);
     });
@@ -243,7 +260,14 @@ const ResultsPage = () => {
 
   useEffect(() => {
     getData({
-      places: ["stops", "fire_incidents", "schools", "police_stations", "stops", "fire_stations"]
+      places: [
+        "stops",
+        "fire_incidents",
+        "schools",
+        "police_stations",
+        "stops",
+        "fire_stations",
+      ],
     });
   }, [postcode]);
 
@@ -266,11 +290,11 @@ const ResultsPage = () => {
     const placesArray = Object.keys(places).reduce(
       (final: string[], key: string) =>
         key === "fire_incidents" ||
-          key === "floods" ||
-          key === "schools" ||
-          key === "police_stations" ||
-          key === "stops" ||
-          key === "fire_stations"
+        key === "floods" ||
+        key === "schools" ||
+        key === "police_stations" ||
+        key === "stops" ||
+        key === "fire_stations"
           ? (places as any)[key]
             ? [...final, key]
             : final
@@ -280,7 +304,14 @@ const ResultsPage = () => {
 
     getData({ places: placesArray });
   };
-
+  async function download(data: any) {
+    console.log("=== download ===", data);
+    SearchAPI.Download(postcode , data).then((res) => {
+      console.log('=== download ===', res)
+    }).catch((error) => {
+      console.log('=== error ===', error)
+    })
+  }
   return (
     <ResultsLayout>
       {showDetails ? (
@@ -311,38 +342,92 @@ const ResultsPage = () => {
             />
           </GridItem>
           <GridItem colSpan={2}>
-            <SimpleGrid columns={{ base: 1, lg: 2 }}>
-              <TableContainer>
-                <Table variant='striped' colorScheme='teal'>
-                  <TableCaption>Imperial to metric conversion factors</TableCaption>
-                  <Thead>
-                    <Tr>
-                      <Th>To convert</Th>
-                      <Th>into</Th>
-                      <Th isNumeric>multiply by</Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    <Tr>
-                      <Td>inches</Td>
-                      <Td>millimetres (mm)</Td>
-                      <Td isNumeric>25.4</Td>
-                    </Tr>
-                    <Tr>
-                      <Td>feet</Td>
-                      <Td>centimetres (cm)</Td>
-                      <Td isNumeric>30.48</Td>
-                    </Tr>
-                    <Tr>
-                      <Td>yards</Td>
-                      <Td>metres (m)</Td>
-                      <Td isNumeric>0.91444</Td>
-                    </Tr>
-                  </Tbody>
+            <SimpleGrid columns={{ base: 1, lg: 1 }} gap={10}>
+              <TableComponent
+                data={locations?.filter(
+                  (location) => location?.type === "property"
+                )}
+                setShowDetails={setShowDetails}
+                headers={[
+                  {
+                    key: "id",
+                    name: "#",
+                  },
+                  {
+                    key: "price_with_currency",
+                    name: "Price Range",
+                  },
+                  {
+                    key: "avg_living_costs_with_currency",
+                    name: "Average Living Costs",
+                  },
+                ]}
+                tableName={"Properties"}
+              />
+              <TableComponent
+                data={locations?.filter(
+                  (location) => location?.type === "stop"
+                )}
+                setShowDetails={setShowDetails}
+                tableName={"Transportaion stations"}
+                headers={[
+                  {
+                    key: "atco_code",
+                    name: "#",
+                  },
+                  {
+                    key: "common_name",
+                    name: "Common name",
+                  },
+                  {
+                    key: "stop_type",
+                    name: "Type",
+                  },
+                ]}
+              />
 
-                </Table>
-              </TableContainer>
-
+              <TableComponent
+                data={locations?.filter(
+                  (location) => location?.type === "fire_incident"
+                )}
+                setShowDetails={setShowDetails}
+                tableName={"Fire Incidents"}
+                headers={[
+                  {
+                    key: "id",
+                    name: "#",
+                  },
+                  {
+                    key: "incident_type",
+                    name: "Type",
+                  },
+                  {
+                    key: "lsoa_description",
+                    name: "Description",
+                  },
+                  {
+                    key: "lsoa_code",
+                    name: "Lsoa code",
+                  },
+                  {
+                    key: "territory",
+                    name: "Territory",
+                  },
+                  {
+                    key: "year",
+                    name: "Year",
+                  },
+                ]}
+              />
+              <Button
+                w="100%"
+                colorScheme="primary"
+                type="submit"
+                py="7"
+                onClick={() => download(locations)}
+              >
+                Download
+              </Button>
             </SimpleGrid>
           </GridItem>
           <GridItem className="order2" colSpan={{ base: 2, lg: 1 }}>
