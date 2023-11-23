@@ -104,6 +104,7 @@ const ResultsPage = () => {
   const { postcode } = useSelector(
     (_: { data: { postcode: string } }) => _.data
   );
+  const [placesResponse , setPlacesResponse] = useState<any>({})
   const [coordinates, setCoordinates] = useState([]);
   const [locations, setLocations] = useState([
     { id: 0, lat: "", lng: "", type: "" },
@@ -141,10 +142,11 @@ const ResultsPage = () => {
   );
 
   const getData = ({ places }: searchProps) => {
-    console.log("=== places ===", places);
+    // console.log("=== places ===", places);
     // @ts-ignore
     SearchAPI.search(postcode, places).then((res: resProps) => {
-      console.log("=== search init ===", res);
+      // console.log("=== search init ===", res);
+      setPlacesResponse(res)
       setCoordinates(res.coordinates);
       // const newData = Object.keys(res).map((key) => ({
       //   type: key,
@@ -296,9 +298,9 @@ const ResultsPage = () => {
 
     getData({ places: placesArray });
   };
-  async function download(data: any) {
-    console.log("=== download ===", data);
-    SearchAPI.Download(postcode , data).then((res) => {
+  async function download() {
+    console.log("=== download ===", placesResponse);
+    SearchAPI.Download(placesResponse).then((res) => {
       console.log('=== download ===', res)
     }).catch((error) => {
       console.log('=== error ===', error)
@@ -416,7 +418,7 @@ const ResultsPage = () => {
                 colorScheme="primary"
                 type="submit"
                 py="7"
-                onClick={() => download(locations)}
+                onClick={download}
               >
                 Download
               </Button>
