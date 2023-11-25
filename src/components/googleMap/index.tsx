@@ -1,11 +1,12 @@
 import { IconButton } from "@chakra-ui/react";
 import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { GoogleMap, OverlayView, Polyline, useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap, HeatmapLayer, OverlayView, useJsApiLoader } from "@react-google-maps/api";
 import React from "react";
 
 import { borderHalfRound } from "../../utils/consts";
 import { locationProps, locationTypes } from "../../views/app/resultsPage";
+import { googleMapKey } from "../../api/search";
 
 const containerStyle = {
   width: "100%",
@@ -25,7 +26,9 @@ const GoogleMapComp = React.memo(({ data, setProperty, coordinates }: props) => 
   // console.log('=== coordinates google map ===', coordinates)
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyAE-OzpZjuJkIeVxRJ2J9gGmrCgtYdftbk",
+    googleMapsApiKey: googleMapKey,
+    libraries: ["visualization"],
+
   });
   
   const center = {
@@ -61,14 +64,17 @@ const GoogleMapComp = React.memo(({ data, setProperty, coordinates }: props) => 
       }).filter((poly: any) => poly?.length > 0);
     }
     const points = getDataClassfied(data)
-    console.log('=== points ===', points.flat())
       // Create an array of LatLng objects from the points
   const latLngArray = points.flat().map((point: any) => {
     return { lat: point.lat, lng: point.lng };
   });
+  console.log('=== latLngArray ===', latLngArray)
+
   const onUnmount = React.useCallback(() => {
     setMap(null);
   }, [data]);
+  const heatmapData = points.flat().map((point: any) =>new google.maps.LatLng(point.lat, point.lng) );
+  console.log('=== heatmapData ===', heatmapData)
 
   return isLoaded && data?.length ? (
     <GoogleMap
@@ -78,15 +84,24 @@ const GoogleMapComp = React.memo(({ data, setProperty, coordinates }: props) => 
       onLoad={onLoad}
       onUnmount={onUnmount}
     >
+      <HeatmapLayer
+
+        data={heatmapData}
+        options={{
+
+          radius: 20,   
+          opacity: 0.6,
+        }}
+      />
             {/* Render Polyline to connect the points */}
-      <Polyline
+      {/* <Polyline
         path={latLngArray}
         options={{
           strokeColor: 'blue', // Customize the color of the line as needed
           strokeOpacity: 1.0,
           strokeWeight: 2, // Customize the width of the line as needed
         }}
-      />
+      /> */}
       {data?.map((prop: any, i: any) => {
         const { lat, lng, type} = prop;
         const typ = locationTypes.find(({ name }) => name === type);

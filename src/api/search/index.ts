@@ -13,5 +13,5 @@ const searchHistory = () =>
   });
   const Download = (places: any) =>
   api.post(`core/places/download/`, places);
-
-export { search, searchHistory , Download};
+const googleMapKey = "AIzaSyAE-OzpZjuJkIeVxRJ2J9gGmrCgtYdftbk";
+export { search, searchHistory , Download , googleMapKey};
