@@ -1,5 +1,4 @@
 import {
-  Button,
   GridItem,
   SimpleGrid
 } from "@chakra-ui/react";
@@ -104,7 +103,7 @@ const ResultsPage = () => {
   const { postcode } = useSelector(
     (_: { data: { postcode: string } }) => _.data
   );
-  const [placesResponse , setPlacesResponse] = useState<any>({})
+  // const [placesResponse , setPlacesResponse] = useState<any>({})
   const [coordinates, setCoordinates] = useState([]);
   const [locations, setLocations] = useState([
     { id: 0, lat: "", lng: "", type: "" },
@@ -146,7 +145,7 @@ const ResultsPage = () => {
     // @ts-ignore
     SearchAPI.search(postcode, places).then((res: resProps) => {
       // console.log("=== search init ===", res);
-      setPlacesResponse(res)
+      // setPlacesResponse(res)
       setCoordinates(res.coordinates);
       // const newData = Object.keys(res).map((key) => ({
       //   type: key,
@@ -298,14 +297,14 @@ const ResultsPage = () => {
 
     getData({ places: placesArray });
   };
-  async function download() {
-    console.log("=== download ===", placesResponse);
-    SearchAPI.Download(placesResponse).then((res) => {
-      console.log('=== download ===', res)
-    }).catch((error) => {
-      console.log('=== error ===', error)
-    })
-  }
+  // async function download() {
+  //   console.log("=== download ===", placesResponse);
+  //   SearchAPI.Download(placesResponse).then((res) => {
+  //     console.log('=== download ===', res)
+  //   }).catch((error) => {
+  //     console.log('=== error ===', error)
+  //   })
+  // }
   return (
     <ResultsLayout>
       {showDetails ? (
@@ -413,7 +412,7 @@ const ResultsPage = () => {
                   },
                 ]}
               />
-              <Button
+              {/* <Button
                 w="100%"
                 colorScheme="primary"
                 type="submit"
@@ -421,7 +420,7 @@ const ResultsPage = () => {
                 onClick={download}
               >
                 Download
-              </Button>
+              </Button> */}
             </SimpleGrid>
           </GridItem>
           <GridItem className="order2" colSpan={{ base: 2, lg: 1 }}>
