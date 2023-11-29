@@ -75,6 +75,10 @@ function s2ab(s: any) {
               w="100%"
               colorScheme="primary"
               type="submit"
+              style={{
+                width: 'fit-content',
+                margin: '0 auto'
+              }}
               // borderRadius={borderRound}
               py="7"
               onClick={() => downloadExcel(tableName)}

@@ -310,7 +310,7 @@ const ResultsPage = () => {
       {showDetails ? (
         <SimpleGrid columns={{ base: 1, lg: 2 }} gap={7}>
           <GridItem colSpan={2}>
-            <ResultsSearchBox withoutMap onSubmit={onSearchSubmit} />
+            <ResultsSearchBox onSubmit={onSearchSubmit} />
           </GridItem>
 
           <GridItem colSpan={{ base: 2, lg: 1 }}>
