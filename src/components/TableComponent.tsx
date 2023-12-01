@@ -42,7 +42,7 @@ function s2ab(s: any) {
     fontWeight: 700,
     color: '#842888'
   }}> {tableName}</h3>
-    <TableContainer overflowY={'auto'} maxHeight={'500px'}>
+    {data.length > 0 ? <><TableContainer key={data.id} overflowY={'auto'} maxHeight={'500px'}>
       <Table variant="striped">
         {/* <TableCaption>{tableName}</TableCaption> */}
         <Thead>
@@ -85,6 +85,8 @@ function s2ab(s: any) {
             >
               Download {tableName} table in Excel
             </Button>
+            </>
+            : <p>No data found</p> }
   </>
     
   

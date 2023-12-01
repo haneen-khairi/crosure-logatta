@@ -4,11 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   GoogleMap,
   HeatmapLayer,
-  Marker,
+  InfoWindow,
   OverlayView,
   useJsApiLoader,
 } from "@react-google-maps/api";
-import React from "react";
+import React, { useState } from "react";
 
 import { borderHalfRound } from "../../utils/consts";
 import { locationProps, locationTypes } from "../../views/app/resultsPage";
@@ -29,7 +29,14 @@ interface props {
 
 const GoogleMapComp = React.memo(
   ({ data, setProperty, coordinates }: props) => {
-    console.log("=== google map ===", data);
+    // console.log("=== google map ===", data, setProperty, coordinates);
+    const [activePopupId, setActivePopupId] = useState(null);
+    const [activePopupCordinates, setActivePopupCordinates] = useState({
+      lat: 0,
+      lng: 0
+    });
+
+
     // console.log('=== coordinates google map ===', coordinates)
     const { isLoaded } = useJsApiLoader({
       id: "google-map-script",
@@ -44,7 +51,23 @@ const GoogleMapComp = React.memo(
 
     const [mapp, setMap] = React.useState(null);
     console.log("=== maps ===", mapp);
-
+    function getSelectedData(prop:any , type: any){
+      setActivePopupCordinates({
+        lat: 0,
+        lng: 0
+      })
+      console.log("=== getSelectedData ===", prop)
+      setActivePopupId(prop.id);
+      setTimeout(() => {
+        setActivePopupCordinates({lat: parseFloat(prop.lat) , lng: parseFloat(prop.lng)})
+        console.log('=== getSelectedData ===', {lat: prop.lat , lng: prop.lng})
+      }, 1000);
+      if(type === "property"){
+        setProperty(prop)
+      }else{
+        console.log("Not a property, no summary to show")
+      }
+    }
     const onLoad = React.useCallback(
       (map: any) => {
         // This is just an example of getting and using the map instance!!! don't just blindly copy!
@@ -73,10 +96,10 @@ const GoogleMapComp = React.memo(
     }
     const points = getDataClassfied(data);
     // Create an array of LatLng objects from the points
-    const latLngArray = points.flat().map((point: any) => {
-      return { lat: point.lat, lng: point.lng };
-    });
-    console.log("=== latLngArray ===", latLngArray);
+    // const latLngArray = points.flat().map((point: any) => {
+    //   return { lat: point.lat, lng: point.lng };
+    // });
+    // console.log("=== latLngArray ===", latLngArray);
 
     const onUnmount = React.useCallback(() => {
       setMap(null);
@@ -84,7 +107,7 @@ const GoogleMapComp = React.memo(
     const heatmapData = points
       .flat()
       .map((point: any) => new google.maps.LatLng(point.lat, point.lng));
-    console.log("=== heatmapData ===", heatmapData);
+    // console.log("=== heatmapData ===", heatmapData);
 
     return isLoaded && data?.length ? (
       <GoogleMap
@@ -123,22 +146,21 @@ const GoogleMapComp = React.memo(
         {data?.map((prop: any, i: any) => {
           const { lat, lng, type } = prop;
           const typ = locationTypes.find(({ name }) => name === type);
-
+          // let positionForDataSelected;
+          // setTimeout(() => {
+          //   positionForDataSelected = {lat: prop.lat , lng: prop.lng}
+          // }, 1000);
+          const isValidPosition = typeof activePopupCordinates.lat === 'number' && typeof activePopupCordinates.lng === 'number';
+          // console.log('=== lat and lng type ===', typeof activePopupCordinates.lat, typeof activePopupCordinates.lng , activePopupCordinates)
           return <>
-          {/* <Marker                
-              // key={center.id}                 
-              position={{                     
-                 lat,                     
-                 lng                 
-              }}
-           />   */}
+          
              {/* {selectedPoint && (
                 <Marker
                   position={{
                     lat: selectedPoint.lat,
                     lng: selectedPoint.lng,
                   }}
-                  onClick={() => setSelectedPoint(null)} // Close the InfoWindow when marker is clicked
+                  // onClick={() => setSelectedPoint(null)} // Close the InfoWindow when marker is clicked
                 >
                   <InfoWindow>
                     <div>
@@ -148,6 +170,18 @@ const GoogleMapComp = React.memo(
                   </InfoWindow>
                 </Marker>
               )} */}
+                {/* {selectedData &&  } */}
+                {isValidPosition && activePopupId === prop.id  && (
+                  console.log('=== positionForDataSelected ===', activePopupCordinates),
+                    activePopupCordinates.lat && activePopupCordinates.lng && (
+                      <InfoWindow
+                        position={activePopupCordinates}
+                        onCloseClick={() => setActivePopupId(null)}
+                      >
+                        <div>Actions</div>
+                      </InfoWindow>
+                    )
+                )}
             <OverlayView
               position={{
                 lat,
@@ -165,9 +199,7 @@ const GoogleMapComp = React.memo(
                 aria-label="Done"
                 fontSize="15px"
                 onClick={() =>
-                  type === "property"
-                    ? setProperty(prop)
-                    : console.log("Not a property, no summary to show")
+                  getSelectedData(prop, type)
                 }
                 icon={<FontAwesomeIcon icon={typ?.icon || faCheck} />}
               />

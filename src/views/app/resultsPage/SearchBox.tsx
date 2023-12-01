@@ -107,7 +107,7 @@ const  ResultsSearchBox = ({
       title="Select services"
       body={
         <Fragment>
-          {/* {!withoutMap && data?.length ? ( */}
+          {!withoutMap && data?.length ? (
             <SimpleGrid columns={{ base: 1, lg: 4 }} gap={7}>
               <GridItem zIndex={101}>
                 <FormRenderer
@@ -120,12 +120,12 @@ const  ResultsSearchBox = ({
                 <GoogleMapComp coordinates={coordinates} data={data} setProperty={setProperty} />
               </GridItem>
             </SimpleGrid>
-          {/* ) : (
+           ) : (
             <FormRenderer 
               inputs={inputs}
               onSubmit={(e: object) => onSubmit(e)}
             />
-          )} */}
+          )} 
         </Fragment>
       }
     />
