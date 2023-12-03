@@ -5,6 +5,7 @@ import { computedInputProps } from "./FormRenderer";
 import InputTypePicker from "./InputTypePicker";
 
 const InputGroupComp = ({
+  checked,
   beforeIcon,
   afterIcon,
   ...props
@@ -25,7 +26,7 @@ const InputGroupComp = ({
         ""
       )}
 
-      <InputTypePicker {...props} />
+      <InputTypePicker checked={checked} {...props} />
 
       {afterIcon && <InputRightElement>{afterIcon}</InputRightElement>}
     </Fragment>

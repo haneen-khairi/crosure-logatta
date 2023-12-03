@@ -12,12 +12,13 @@ import InputRenderer from "./InputRenderer";
 export interface inputProps {
   placeholder?: string;
   title?: string;
+  checked?: boolean;
   name: string;
   type?: string;
   optionType?: string;
   options?: { value: string | number | boolean; label: string }[];
   required?: boolean;
-  fullWidth?: boolean;
+  fullWidth?: number| boolean;
   double?: boolean;
   triple?: boolean;
   text?: boolean;
@@ -51,6 +52,7 @@ interface props {
   inputs: inputProps[];
   onSubmit: any;
   data?: object;
+  map?: boolean,
   customValidations?: object[];
   extraValidations?: object[];
   submitText?: string;
@@ -60,6 +62,7 @@ const FormRenderer = ({
   inputs,
   onSubmit,
   data,
+  map,
   customValidations,
   extraValidations,
   submitText,
@@ -100,13 +103,46 @@ const FormRenderer = ({
   });
 
   return (
-    <Box w="100%">
+    <Box w="100%" style={map ? {paddingTop: '18px'}: {}}>
       <form
         onSubmit={(e) => {
           e.preventDefault();
           formik.submitForm();
         }}
       >
+        {map ? 
+        <div className="grid-inputs">
+        {inputs.map(
+          ({ required, min, max, minLength, checked, maxLength, ...input }, i) => (
+              <InputRenderer
+              map={map}
+                checked={checked}
+                formik={formik}
+                onBlur={() => {
+                  formik?.setFieldTouched(input.name, true);
+                }}
+                value={(formik.values as dynamicObject)[input.name]}
+                onChange={formik.setFieldValue}
+                {...input}
+                key={i}
+              />
+
+          )
+        )}
+
+        <GridItem>
+          <Button
+            w="100%"
+            colorScheme="primary"
+            type="submit"
+            borderRadius={borderRound}
+            py="7"
+            >
+            {submitText || "Submit"}
+          </Button>
+        </GridItem>
+            </div>
+        :
         <Grid templateColumns="repeat(1, 1fr)" gap={4}>
           {inputs.map(
             ({ required, min, max, minLength, maxLength, ...input }, i) => (
@@ -135,7 +171,7 @@ const FormRenderer = ({
               {submitText || "Submit"}
             </Button>
           </GridItem>
-        </Grid>
+        </Grid>}
       </form>
     </Box>
   );

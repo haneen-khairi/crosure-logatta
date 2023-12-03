@@ -5,7 +5,7 @@ import { locationProps } from ".";
 import CardComp from "../../../components/cards";
 import FormRenderer from "../../../components/forms/FormRenderer";
 import GoogleMapComp from "../../../components/googleMap";
-import { GridItem, SimpleGrid } from "@chakra-ui/react";
+// import { GridItem, SimpleGrid } from "@chakra-ui/react";
 
 interface props {
   withoutMap?: boolean;
@@ -23,6 +23,13 @@ const  ResultsSearchBox = ({
   coordinates
 }: props) => {
   const inputs = [
+    // {
+    //   name: "All",
+    //   title: "all",
+    //   type: "checkbox",
+    //   checked: false,
+    //   fullWidth: true,
+    // },
     // {
     //   name: "transporation",
     //   placeholder: "Transport Stations",
@@ -48,18 +55,24 @@ const  ResultsSearchBox = ({
       name: "stops",
       title: "Transport Stations",
       type: "checkbox",
+      checked: true,
+
       fullWidth: true,
     },
     {
       name: "police_stations",
       title: "Police Stations",
       type: "checkbox",
+      checked: true,
+
       fullWidth: true,
     },
     {
       name: "schools",
       title: "Education",
       type: "checkbox",
+      checked: true,
+
       fullWidth: true,
     },
     {
@@ -87,18 +100,24 @@ const  ResultsSearchBox = ({
       name: "fire_stations",
       title: "Fire Stations",
       type: "checkbox",
+      checked: true,
+
       fullWidth: true,
     },
     {
       name: "floods",
       title: "Flood Risk",
       type: "checkbox",
+      checked: false,
+
       fullWidth: true,
     },
     {
       name: "fire_incidents",
       title: "Fire Incidents",
       type: "checkbox",
+      checked: true,
+
       fullWidth: true,
     },
   ];
@@ -107,21 +126,20 @@ const  ResultsSearchBox = ({
       title="Select services"
       body={
         <Fragment>
-          {!withoutMap && data?.length ? (
-            <SimpleGrid columns={{ base: 1, lg: 4 }} gap={7}>
-              <GridItem zIndex={101}>
+          {!withoutMap && data?.length ? <>
+            
+                <GoogleMapComp coordinates={coordinates} data={data} setProperty={setProperty} />
                 <FormRenderer
+                
+                  map={true}
                   inputs={inputs}
                   onSubmit={(e: object) => onSubmit(e)}
                 />
-              </GridItem>
-
-              <GridItem colSpan={3} zIndex={100}>
-                <GoogleMapComp coordinates={coordinates} data={data} setProperty={setProperty} />
-              </GridItem>
-            </SimpleGrid>
-           ) : (
+              
+           </> : (
             <FormRenderer 
+              map={true}
+
               inputs={inputs}
               onSubmit={(e: object) => onSubmit(e)}
             />

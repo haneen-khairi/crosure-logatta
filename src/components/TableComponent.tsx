@@ -72,11 +72,11 @@ function s2ab(s: any) {
       </Table>
     </TableContainer>
       <Button
-              w="100%"
+              w="90%"
               colorScheme="primary"
               type="submit"
               style={{
-                width: 'fit-content',
+                // width: 'fit-content',
                 margin: '0 auto'
               }}
               // borderRadius={borderRound}

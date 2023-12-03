@@ -56,8 +56,15 @@ body{
     justify-content: space-between;
 }
 
-
+.grid-inputs{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+    gap: 10px; /* Adjust the gap between items as needed */
+}
 @media screen and (max-width: 660px) {
+    .grid-inputs{
+        grid-template-columns: 1fr; /* 1 column for smaller screens */
+    }
     .summary_box{
         display: block;
     }
