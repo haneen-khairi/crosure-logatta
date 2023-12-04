@@ -37,6 +37,7 @@ export interface inputProps {
 
 interface computedProps {
   value: any;
+  checkedChartBox?: any,
   onChange: any;
   formik?: { errors: object; values: object; touched: object };
   onBlur?: any;

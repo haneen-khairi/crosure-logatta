@@ -3,7 +3,8 @@ import { Checkbox, Input, Popover, PopoverBody, PopoverContent, PopoverTrigger }
 import { computedInputProps } from "./FormRenderer";
 
 
-const SelectMultiInput = ({ onChange, ...props }: computedInputProps) => {
+const SelectMultiInput = ({ onChange, checkedChartBox , checked, ...props }: computedInputProps) => {
+  console.log('=== checkedChartBox ===', checkedChartBox)
   return (
     <Popover >
       <PopoverTrigger >
@@ -21,12 +22,42 @@ const SelectMultiInput = ({ onChange, ...props }: computedInputProps) => {
         />
       </PopoverTrigger>
 
+      {checkedChartBox ? 
       <PopoverContent zIndex={99999999} className="PopoverContent">
+      <PopoverBody >
+        {props.options?.map(({ value, label }, i) => (
+          <Checkbox
+            colorScheme="primary"
+            size="lg"
+            defaultChecked={checkedChartBox.includes(value)}
+            onChange={() =>
+              onChange(
+                props.name,
+                props.value?.includes(value)
+                  ? props.value?.filter(
+                      (v: string | boolean | number) => v !== value
+                    )
+                  : [...props.value, value]
+              )
+            }
+            {...props}
+            checked={props.value.includes(value)}
+            width="100%"
+            my={3}
+            key={i}
+          >
+            {label}
+          </Checkbox>
+        ))}
+      </PopoverBody>
+    </PopoverContent>
+      :<PopoverContent zIndex={99999999} className="PopoverContent">
         <PopoverBody >
           {props.options?.map(({ value, label }, i) => (
             <Checkbox
               colorScheme="primary"
               size="lg"
+              // defaultChecked={checkedChartBox.includes(value)}
               onChange={() =>
                 onChange(
                   props.name,
@@ -47,7 +78,7 @@ const SelectMultiInput = ({ onChange, ...props }: computedInputProps) => {
             </Checkbox>
           ))}
         </PopoverBody>
-      </PopoverContent>
+      </PopoverContent>}
     </Popover>
   );
 };

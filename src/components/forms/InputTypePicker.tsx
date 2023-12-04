@@ -5,7 +5,10 @@ import { computedInputProps } from "./FormRenderer";
 import PasswordInput from "./PasswordInput";
 import SelectMultiInput from "./SelectMultiInput";
 
-const InputTypePicker = ({ checked, title, onChange, ...props }: computedInputProps) => {
+const InputTypePicker = ({ 
+  checked,
+  checkedChartBox , 
+  title, onChange, ...props }: computedInputProps) => {
   switch (props.type) {
     case "email":
       return (
@@ -39,7 +42,7 @@ const InputTypePicker = ({ checked, title, onChange, ...props }: computedInputPr
         </Checkbox>
       );
     case "selectMany":
-      return <SelectMultiInput onChange={onChange} {...props} />;
+      return <SelectMultiInput checkedChartBox={checkedChartBox} checked={true} onChange={onChange} {...props} />;
     default:
       return (
         <Input

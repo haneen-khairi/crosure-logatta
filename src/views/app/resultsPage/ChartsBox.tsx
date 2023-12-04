@@ -74,6 +74,7 @@ const ResultsChartsBox = () => {
     }).then((crimes: any) => {
       // @ts-ignore
       console.log('=== crimes ===',crimes)
+      console.log('=== crimes includes ===', chartSelectedOptions.crimes.includes('type'))
       if(crimes[0].type === undefined){
         setStats((current) => ({ 
           ...current, 
@@ -181,6 +182,8 @@ const ResultsChartsBox = () => {
             name={name}
             placeholder={"Type of " + label}
             type="selectMany"
+            checkedChartBox={(chartSelectedOptions as any)[name]}
+            // checked={(chartSelectedOptions as any)[name].includes('type')}
             value={(chartSelectedOptions as any)[name]}
             onChange={(name = "", value = [""]) => {
                 console.log('=== changed ===', value)
