@@ -5,6 +5,7 @@ import { locationProps } from ".";
 import CardComp from "../../../components/cards";
 import FormRenderer from "../../../components/forms/FormRenderer";
 import GoogleMapComp from "../../../components/googleMap";
+// import { title } from "process";
 // import { GridItem, SimpleGrid } from "@chakra-ui/react";
 
 interface props {
@@ -76,17 +77,19 @@ const  ResultsSearchBox = ({
       fullWidth: true,
     },
     {
-      name: "medical",
-      placeholder: "Medical Center",
-      type: "selectMany",
-      options: [
-        { value: "clinics", label: "Clinics" },
-        { value: "pharmacies", label: "Pharmacies" },
-        { value: "hospitals", label: "Hospitals" },
-        { value: "gp_practices", label: "GP Practices" },
-        { value: "scls", label: "Supported Cate Living" },
-        { value: "dentists", label: "Dentists" },
-      ],
+      name: "medical_services",
+      // placeholder: "Medical Center",
+      type: "checkbox",
+      title: "Medical Center",
+      checked: true,
+      // options: [
+      //   { value: "clinics", label: "Clinics" },
+      //   { value: "pharmacies", label: "Pharmacies" },
+      //   { value: "hospitals", label: "Hospitals" },
+      //   { value: "gp_practices", label: "GP Practices" },
+      //   { value: "scls", label: "Supported Cate Living" },
+      //   { value: "dentists", label: "Dentists" },
+      // ],
       fullWidth: true,
     },
     // {

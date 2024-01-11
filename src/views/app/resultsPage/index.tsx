@@ -257,6 +257,7 @@ const ResultsPage = () => {
         "stops",
         "fire_incidents",
         "schools",
+        "medical_services",
         "police_stations",
         "stops",
         "fire_stations",
@@ -285,6 +286,7 @@ const ResultsPage = () => {
         key === "fire_incidents" ||
         key === "floods" ||
         key === "schools" ||
+        key === "medical_services" ||
         key === "police_stations" ||
         key === "stops" ||
         key === "fire_stations"
