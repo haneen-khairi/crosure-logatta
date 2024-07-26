@@ -7,10 +7,9 @@ import InputGroupComp from "../forms/InputGroup";
 
 interface props {
   onSubmit: any;
-  className: string
 }
 
-const SearchBar = ({ onSubmit , className}: props) => {
+const SearchBar = ({ onSubmit }: props) => {
   const { postcode: code } = useSelector(
     (_: { data: { postcode: string } }) => _.data
   );
@@ -18,7 +17,6 @@ const SearchBar = ({ onSubmit , className}: props) => {
   const [postcode, setPostcode] = useState(code || "");
 
   const onValueSubmit = () => {
-    
     onSubmit(postcode);
   };
 
@@ -28,7 +26,6 @@ const SearchBar = ({ onSubmit , className}: props) => {
         e.preventDefault();
         onValueSubmit();
       }}
-      className={className}
     >
       <InputGroup size="lg">
         <InputGroupComp

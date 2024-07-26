@@ -49,44 +49,42 @@ const ResultsHeader = () => {
           align="center"
         >
           <Text
-          onClick={()=> dispatch(clearPostcode())}
-          style={{cursor: "pointer"}}
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
             fontFamily={"heading"}
             color={useColorModeValue("gray.800", "white")}
           >
-            <Logo  imageSrc="/logo_login.svg" size='200px' />
+            <Logo />
           </Text>
 
-
-        </Flex>
-        <Flex display="flex" ml={10} gap={'24px'}>
-            <SearchBar className="form_search" onSubmit={(e: string) => dispatch(setPostcode(e))} />
-          <Stack
-            flex={{ base: 1, md: 0 }}
-            justify={"flex-end"}
-            direction={"row"}
-            spacing={6}
-          >
-            <Menu>
-              <MenuButton>
-                <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov">
-                  <AvatarBadge boxSize="1.25em" bg="primary.500" role="button" />
-                </Avatar>
-              </MenuButton>
-              <MenuList>
-                <MenuItem
-                  onClick={() => {
-                    dispatch(logout());
-                    dispatch(clearPostcode());
-                  }}
-                >
-                  Sign Out
-                </MenuItem>
-              </MenuList>
-            </Menu>
-          </Stack>
+          <Flex display="flex" ml={10}>
+            <SearchBar onSubmit={(e: string) => dispatch(setPostcode(e))} />
           </Flex>
+        </Flex>
+
+        <Stack
+          flex={{ base: 1, md: 0 }}
+          justify={"flex-end"}
+          direction={"row"}
+          spacing={6}
+        >
+          <Menu>
+            <MenuButton>
+              <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov">
+                <AvatarBadge boxSize="1.25em" bg="primary.500" role="button" />
+              </Avatar>
+            </MenuButton>
+            <MenuList>
+              <MenuItem
+                onClick={() => {
+                  dispatch(logout());
+                  dispatch(clearPostcode());
+                }}
+              >
+                Sign Out
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </Stack>
       </Flex>
 
       <LoadingIndicator />

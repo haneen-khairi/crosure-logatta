@@ -1,7 +1,4 @@
-import {
-  GridItem,
-  SimpleGrid
-} from "@chakra-ui/react";
+import { GridItem, SimpleGrid } from "@chakra-ui/react";
 import { faHouseMedical } from "@fortawesome/free-solid-svg-icons";
 import { faBus } from "@fortawesome/free-solid-svg-icons/faBus";
 import { faFire } from "@fortawesome/free-solid-svg-icons/faFire";
@@ -26,9 +23,6 @@ import ResultsDetailsBox from "./DetailsBox";
 import MapPicturesBox from "./MapPicturesBox";
 import ResultsSearchBox from "./SearchBox";
 import ResultsSummaryBox from "./SummaryBox";
-// import ShowMoreButton from "../../../components/buttons/ShowMore";
-import TableComponent from "../../../components/TableComponent";
-// import axios from "axios";
 
 export interface locationProps {
   id: number;
@@ -52,7 +46,6 @@ export interface detailsProps {
   lat: string;
   lng: string;
   property_type: string;
-  // coordinates: any;
   bedrooms: number;
   bathrooms: number;
   condition: string;
@@ -63,7 +56,6 @@ export interface detailsProps {
 
 interface resProps {
   properties_summary: summaryProps;
-  coordinates: [];
   clinics: { results: locationProps[] };
   dentists: { results: locationProps[] };
   fire_incidents: { results: locationProps[] };
@@ -103,11 +95,8 @@ const ResultsPage = () => {
   const { postcode } = useSelector(
     (_: { data: { postcode: string } }) => _.data
   );
-  // const [placesResponse , setPlacesResponse] = useState<any>({})
-  const [coordinates, setCoordinates] = useState([]);
-  const [locations, setLocations] = useState([
-    { id: 0, lat: "", lng: "", type: "" },
-  ]);
+
+  const [locations, setLocations] = useState([{ id: 0, lat: "", lng: "" }]);
   const [showDetails, setShowDetails] = useState(0);
 
   const [collectivePropertiesSummary, setCollectivePropertiesSummary] =
@@ -141,12 +130,8 @@ const ResultsPage = () => {
   );
 
   const getData = ({ places }: searchProps) => {
-    // console.log("=== places ===", places);
     // @ts-ignore
     SearchAPI.search(postcode, places).then((res: resProps) => {
-      // console.log("=== search init ===", res);
-      // setPlacesResponse(res)
-      setCoordinates(res.coordinates);
       // const newData = Object.keys(res).map((key) => ({
       //   type: key,
       //   ...res[key],
@@ -245,24 +230,14 @@ const ResultsPage = () => {
         ...scls,
         ...stops,
       ]);
-      
+
       setPropertiesSummary(res.properties_summary);
       setCollectivePropertiesSummary(res.properties_summary);
     });
   };
 
   useEffect(() => {
-    getData({
-      places: [
-        "stops",
-        "fire_incidents",
-        "schools",
-        "medical_services",
-        "police_stations",
-        "stops",
-        "fire_stations",
-      ],
-    });
+    getData({});
   }, [postcode]);
 
   useEffect(() => {
@@ -283,13 +258,7 @@ const ResultsPage = () => {
   const onSearchSubmit = (places: searchProps) => {
     const placesArray = Object.keys(places).reduce(
       (final: string[], key: string) =>
-        key === "fire_incidents" ||
-        key === "floods" ||
-        key === "schools" ||
-        key === "medical_services" ||
-        key === "police_stations" ||
-        key === "stops" ||
-        key === "fire_stations"
+        key === "fire_incidents" || key === "floods"
           ? (places as any)[key]
             ? [...final, key]
             : final
@@ -299,20 +268,13 @@ const ResultsPage = () => {
 
     getData({ places: placesArray });
   };
-  // async function download() {
-  //   console.log("=== download ===", placesResponse);
-  //   SearchAPI.Download(placesResponse).then((res) => {
-  //     console.log('=== download ===', res)
-  //   }).catch((error) => {
-  //     console.log('=== error ===', error)
-  //   })
-  // }
+
   return (
     <ResultsLayout>
       {showDetails ? (
         <SimpleGrid columns={{ base: 1, lg: 2 }} gap={7}>
           <GridItem colSpan={2}>
-            <ResultsSearchBox onSubmit={onSearchSubmit} />
+            <ResultsSearchBox withoutMap onSubmit={onSearchSubmit} />
           </GridItem>
 
           <GridItem colSpan={{ base: 2, lg: 1 }}>
@@ -330,106 +292,17 @@ const ResultsPage = () => {
         <SimpleGrid columns={{ base: 1, lg: 2 }} gap={7}>
           <GridItem colSpan={2}>
             <ResultsSearchBox
-              coordinates={coordinates}
               data={locations}
               setProperty={setPropertiesSummary}
               onSubmit={onSearchSubmit}
             />
           </GridItem>
-          <GridItem colSpan={2}>
-            <SimpleGrid columns={{ base: 1, lg: 1 }} gap={10}>
-              <TableComponent
-                data={locations?.filter(
-                  (location) => location?.type === "property"
-                )}
-                setShowDetails={setShowDetails}
-                headers={[
-                  {
-                    key: "id",
-                    name: "#",
-                  },
-                  {
-                    key: "price_with_currency",
-                    name: "Price Range",
-                  },
-                  {
-                    key: "avg_living_costs_with_currency",
-                    name: "Average Living Costs",
-                  },
-                ]}
-                tableName={"Properties"}
-              />
-              <TableComponent
-                data={locations?.filter(
-                  (location) => location?.type === "stop"
-                )}
-                setShowDetails={setShowDetails}
-                tableName={"Transportaion stations"}
-                headers={[
-                  {
-                    key: "atco_code",
-                    name: "#",
-                  },
-                  {
-                    key: "common_name",
-                    name: "Common name",
-                  },
-                  {
-                    key: "stop_type",
-                    name: "Type",
-                  },
-                ]}
-              />
 
-              <TableComponent
-                data={locations?.filter(
-                  (location) => location?.type === "fire_incident"
-                )}
-                setShowDetails={setShowDetails}
-                tableName={"Fire Incidents"}
-                headers={[
-                  {
-                    key: "id",
-                    name: "#",
-                  },
-                  {
-                    key: "incident_type",
-                    name: "Type",
-                  },
-                  {
-                    key: "lsoa_description",
-                    name: "Description",
-                  },
-                  {
-                    key: "lsoa_code",
-                    name: "Lsoa code",
-                  },
-                  {
-                    key: "territory",
-                    name: "Territory",
-                  },
-                  {
-                    key: "year",
-                    name: "Year",
-                  },
-                ]}
-              />
-              {/* <Button
-                w="100%"
-                colorScheme="primary"
-                type="submit"
-                py="7"
-                onClick={download}
-              >
-                Download
-              </Button> */}
-            </SimpleGrid>
-          </GridItem>
-          <GridItem className="order2" colSpan={{ base: 2, lg: 1 }}>
+          <GridItem colSpan={{ base: 2, lg: 1 }}>
             <ResultsChartsBox />
           </GridItem>
 
-          <GridItem className="order1" colSpan={{ base: 2, lg: 1 }}>
+          <GridItem colSpan={{ base: 2, lg: 1 }}>
             <ResultsSummaryBox
               data={propertiesSummary}
               setShowDetails={setShowDetails}

@@ -1,4 +1,4 @@
-// import { Flex } from "@chakra-ui/react";
+import { Flex, TagLeftIcon } from "@chakra-ui/react";
 import { Fragment } from "react";
 
 import { summaryProps } from ".";
@@ -13,39 +13,38 @@ interface props {
 }
 
 const ResultsSummaryBox = ({ data, setShowDetails }: props) => {
-  // console.log('=== ResultsSummaryBox ===', data);
-  
   const summaryStats = [
     {
-      // color: "green",
-      Icon: "/price_range.svg",
+      color: "green",
+      Icon: TagLeftIcon,
       title: "Price Range",
-      stat: data.avg_price || data.price_with_currency,
+      stat: data.avg_price,
     },
     {
-      // color: "blue",
-      Icon: "/average_living_costs.svg",
+      color: "blue",
+      Icon: TagLeftIcon,
       title: "Average Living Costs",
-      stat: data.avg_living_costs || data.avg_living_costs_with_currency,
+      stat: data.avg_living_costs,
     },
-    // {
-    //   color: "blue",
-    //   Icon: TagLeftIcon,
-    //   title: "Average Living Costs With Currency",
-    //   stat: data.avg_living_costs_with_currency,
-    // },
-    // {
-    //   color: "blue",
-    //   Icon: TagLeftIcon,
-    //   title: "Price With Currency",
-    //   stat: data.price_with_currency,
-    // },
+    {
+      color: "blue",
+      Icon: TagLeftIcon,
+      title: "Average Living Costs With Currency",
+      stat: data.avg_living_costs_with_currency,
+    },
+    {
+      color: "blue",
+      Icon: TagLeftIcon,
+      title: "Price With Currency",
+      stat: data.price_with_currency,
+    },
   ];
+
   return (
     <CardComp
       body={
         <Fragment>
-          <div className="summary_box">
+          <Flex justifyContent="space-between" mb={3}>
             <BoxTitle
               title={
                 data.price_with_currency
@@ -54,12 +53,12 @@ const ResultsSummaryBox = ({ data, setShowDetails }: props) => {
               }
             />
 
-            {data.avg_living_costs_with_currency && (
+            {data.price_with_currency && (
               <ShowMoreButton onClick={() => setShowDetails(data.id)} />
             )}
-          </div>
+          </Flex>
 
-          <StatList stats={summaryStats} />
+          <StatList stats={summaryStats.filter(({ stat }) => stat)} />
         </Fragment>
       }
     />

@@ -1,24 +1,22 @@
 import { FormControl, FormErrorMessage, GridItem, InputGroup, Text } from "@chakra-ui/react";
 
-// import { computedInputProps } from "./FormRenderer";
+import { computedInputProps } from "./FormRenderer";
 import InputGroupComp from "./InputGroup";
 
 const InputRenderer = ({
-  map,
-  checked,
   fullWidth,
   double,
   triple,
   formik,
   ...rest
-}: any) => {
+}: computedInputProps) => {
   return (
     <GridItem
-      colSpan={!map ?{
+      colSpan={{
         base: 12,
         md: fullWidth || triple ? 12 : 6,
         lg: fullWidth ? 12 : triple ? 9 : double ? 6 : 3,
-      }: {}}
+      }}
       mb={5}
     >
       {rest.type !== "checkbox" && rest.title && <Text>{rest.title}</Text>}
@@ -32,7 +30,7 @@ const InputRenderer = ({
         }
       >
         <InputGroup size="lg">
-          <InputGroupComp formik={formik} checked={checked} {...rest} />
+          <InputGroupComp formik={formik} {...rest} />
         </InputGroup>
 
         <FormErrorMessage>{(formik?.errors as any)[rest.name]}</FormErrorMessage>

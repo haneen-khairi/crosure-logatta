@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 
 import Navbar from "../../components/layouts/navbar";
 import LoadingIndicator from "../../components/loadingIndicator";
@@ -17,13 +17,12 @@ const SearchEngineLayout = ({ children }: props) => {
       pt="30vh"
     >
       <Box mx={{ base: 10, md: 40, lg: 200, xl: 460 }}>
-          <Logo imageSrc="/logo_search.svg" noText size="100px" className="m-auto"  />
-          <h3 className="searcharea__header">Commsure</h3>
-          <p className="searcharea__paragraph">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+        <Logo noText size="100px" />
 
-        {/* <Text fontSize="sm" opacity={0.5} textAlign="center" my={3}>
+        <Text fontSize="sm" opacity={0.5} textAlign="center" my={3}>
           This is the subtitle
-        </Text> */}
+        </Text>
+
         <LoadingIndicator />
 
         <Box my={{ base: 10, lg: 10 }}>{children}</Box>

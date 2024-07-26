@@ -83,7 +83,7 @@ const Navbar = ({ items }: props) => {
             fontFamily={"heading"}
             color={useColorModeValue("gray.800", "white")}
           >
-            <Logo noText size="50px" imageSrc="logo.svg" />
+            <Logo noText size="50px" />
           </Text>
 
           <Flex display={{ base: "none", md: "flex" }} ml={10} align="center">

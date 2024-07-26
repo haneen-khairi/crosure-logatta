@@ -2,17 +2,14 @@ import { Checkbox, Input, Popover, PopoverBody, PopoverContent, PopoverTrigger }
 
 import { computedInputProps } from "./FormRenderer";
 
-
-const SelectMultiInput = ({ onChange, checkedChartBox , checked, ...props }: computedInputProps) => {
-  console.log('=== checkedChartBox ===', checkedChartBox)
+const SelectMultiInput = ({ onChange, ...props }: computedInputProps) => {
   return (
-    <Popover >
-      <PopoverTrigger >
+    <Popover placement="right-start">
+      <PopoverTrigger>
         <Input
           colorScheme="primary"
           size="lg"
           {...props}
-          borderRadius={'24px'}
           value={props.value
             .map(
               (v: string | number | boolean) =>
@@ -22,42 +19,12 @@ const SelectMultiInput = ({ onChange, checkedChartBox , checked, ...props }: com
         />
       </PopoverTrigger>
 
-      {checkedChartBox ? 
-      <PopoverContent zIndex={99999999} className="PopoverContent">
-      <PopoverBody >
-        {props.options?.map(({ value, label }, i) => (
-          <Checkbox
-            colorScheme="primary"
-            size="lg"
-            defaultChecked={checkedChartBox.includes(value)}
-            onChange={() =>
-              onChange(
-                props.name,
-                props.value?.includes(value)
-                  ? props.value?.filter(
-                      (v: string | boolean | number) => v !== value
-                    )
-                  : [...props.value, value]
-              )
-            }
-            {...props}
-            checked={props.value.includes(value)}
-            width="100%"
-            my={3}
-            key={i}
-          >
-            {label}
-          </Checkbox>
-        ))}
-      </PopoverBody>
-    </PopoverContent>
-      :<PopoverContent zIndex={99999999} className="PopoverContent">
-        <PopoverBody >
+      <PopoverContent bgColor="#ffffff" opacity={1}>
+        <PopoverBody>
           {props.options?.map(({ value, label }, i) => (
             <Checkbox
               colorScheme="primary"
               size="lg"
-              // defaultChecked={checkedChartBox.includes(value)}
               onChange={() =>
                 onChange(
                   props.name,
@@ -78,7 +45,7 @@ const SelectMultiInput = ({ onChange, checkedChartBox , checked, ...props }: com
             </Checkbox>
           ))}
         </PopoverBody>
-      </PopoverContent>}
+      </PopoverContent>
     </Popover>
   );
 };

@@ -49,4 +49,3 @@ or
 or
 
     npm run dev
-# crosure-logatta
