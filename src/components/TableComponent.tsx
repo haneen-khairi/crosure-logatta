@@ -72,18 +72,22 @@ function s2ab(s: any) {
       </Table>
     </TableContainer>
       <Button
-              w="90%"
+              w="fit-content"
               colorScheme="primary"
               type="submit"
-              style={{
-                // width: 'fit-content',
-                margin: '0 auto'
-              }}
+              color={'#fff'}
+              borderRadius={'50px'}
+              fontSize={'14px'}
+              // style={{
+              //   // width: 'fit-content',
+              //   margin: '0 auto'
+              // }}
               // borderRadius={borderRound}
               py="7"
               onClick={() => downloadExcel(tableName)}
             >
-              Download {tableName} table in Excel
+              Download table 
+              {/* {tableName} in Excel */}
             </Button>
             </>
             : <p>No data found</p> }

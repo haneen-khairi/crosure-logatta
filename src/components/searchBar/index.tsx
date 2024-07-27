@@ -30,11 +30,12 @@ const SearchBar = ({ onSubmit , className}: props) => {
       }}
       className={className}
     >
-      <InputGroup size="lg">
+      <InputGroup size="lg" color={'#040404'}>
         <InputGroupComp
           name="postcode"
           placeholder="Search for postcode..."
           value={postcode}
+          
           onChange={(name = "", value = "") => {
             setPostcode(value);
             console.log({ name });

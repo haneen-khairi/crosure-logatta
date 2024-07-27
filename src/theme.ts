@@ -1,4 +1,6 @@
 import { extendTheme, ThemeConfig } from "@chakra-ui/react";
+import { mode } from '@chakra-ui/theme-tools';
+
 import {
   primaryColor,
   primaryLightColor,
@@ -6,12 +8,33 @@ import {
 } from "./utils/consts";
 
 const config: ThemeConfig = {
-  initialColorMode: "light",
+  initialColorMode: "dark",
   useSystemColorMode: true,
 };
+const styles = {
+  global: (props: any) => ({
+    body: {
+      color: mode('gray.800', 'whiteAlpha.900')(props),
+      bg: mode('#040404', '#141214')(props),
+    },
+  }),
+};
+const components = {
+  Drawer: {
+    // setup light/dark mode component defaults
+    baseStyle: (props: any) => ({
+      dialog: {
+        // bg: mode('gray.600', '#141214')(props),
+        color: mode('gray.600', '#141214')(props),
 
+      },
+    }),
+  },
+};
 const theme = extendTheme({
   config,
+  // styles,
+  components,
   colors: {
     primary: {
       50: primaryColor,
