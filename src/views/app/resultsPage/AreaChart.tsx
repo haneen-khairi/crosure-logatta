@@ -1,9 +1,10 @@
 import Chart from "react-apexcharts";
 import React from "react";
+import { useColorMode } from "@chakra-ui/react";
 
 const AreaChart = React.memo(({ data }: { data: any }) => {
 
-
+  const {colorMode} = useColorMode()
 
   function transformData(inputData: any) {
     const categories: any[] = [];
@@ -53,7 +54,11 @@ const AreaChart = React.memo(({ data }: { data: any }) => {
   return (
     <Chart
 
-      options={transformedData.options}
+      options={{
+        xaxis: { categories: transformedData.options.xaxis.categories },
+        tooltip: { theme: colorMode === 'light' ? 'light' : 'dark' }, // Set theme to 'dark' or 'light'
+        theme: { mode: colorMode === 'light' ? "light" : 'dark' }, // Use light as default if no theme provided
+      }}
       series={transformedData.series}
       type="area"
       width="100%"

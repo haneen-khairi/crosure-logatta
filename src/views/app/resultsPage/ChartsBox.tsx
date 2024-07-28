@@ -9,6 +9,8 @@ import BoxTitle from "../../../components/typography/BoxTitle";
 import AreaChart from "./AreaChart";
 // import SelectComponent from "../../../components/SelectComponent";
 import InputTypePicker from "../../../components/forms/InputTypePicker";
+import TableComponent from "../../../components/TableComponent";
+import axios from "axios";
 
 const ResultsChartsBox = () => {
   const [stats, setStats] = useState({ fires: [
@@ -24,6 +26,13 @@ const ResultsChartsBox = () => {
       }
     
   ] });
+  // async function getFireIncidents(){
+  //   try {
+  //     const response = await StatsAPI.fireIncidents()
+  //   } catch (error) {
+      
+  //   }
+  // }
   // const [defaultValue, setDefaultValue] = useState<number>(0)
   const [chartSelectedOptions, setChartSelectedOptions] = useState({
     fires: [
@@ -87,7 +96,6 @@ const ResultsChartsBox = () => {
         }));
       }else{
         setStats((current) => ({ ...current, crimes }));
-
       }
     });
 
@@ -140,7 +148,22 @@ const ResultsChartsBox = () => {
             {label}
           </Text>
         </GridItem>
-
+        {/* <TableComponent
+                data={locations?.filter(
+                  (location) => location?.type === "property"
+                )}
+                headers={[
+                  {
+                    key: "incidents_count",
+                    name: "incidents count",
+                  },
+                  {
+                    key: "year",
+                    name: "Year Range",
+                  },
+                ]}
+                tableName={"fire_incidents"}
+              /> */}
         <GridItem className="grid-column-select">
           {/* <SelectComponent
           id={`data_crimes_${name}`}

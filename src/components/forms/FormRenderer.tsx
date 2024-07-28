@@ -1,4 +1,4 @@
-import { Box, Button, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Button, Grid, GridItem, useColorMode } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import React from "react";
 
@@ -68,7 +68,8 @@ const FormRenderer = ({
   extraValidations,
   submitText,
 }: props) => {
-  
+  const { colorMode } = useColorMode()
+ 
   const formik = useFormik({
     initialValues: {
       ...initialValuesGenerator({
@@ -138,6 +139,7 @@ const FormRenderer = ({
             type="submit"
             borderRadius={borderRound}
             py="7"
+            color={colorMode === 'light' ? '#040404' : '#fff'}
             >
             {submitText || "Submit"}
           </Button>

@@ -9,6 +9,7 @@ import {
   Stack,
   Text,
   useBreakpointValue,
+  useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { Fragment } from "react";
@@ -22,6 +23,7 @@ import { clearPostcode, setPostcode } from "../../redux/actions/data";
 
 const ResultsHeader = () => {
   const dispatch = useDispatch();
+  const { colorMode, toggleColorMode } = useColorMode()
 
   return (
     <Fragment>
@@ -55,7 +57,7 @@ const ResultsHeader = () => {
             fontFamily={"heading"}
             color={useColorModeValue("gray.800", "white")}
           >
-            <Logo  imageSrc="/logo_login.svg" size='200px' />
+            {colorMode === 'light' ? <Logo  imageSrc="/logo_login.svg" size='200px' /> : <Logo  imageSrc="/light-logo-svg.svg" size='200px' /> }
           </Text>
 
 
@@ -75,6 +77,11 @@ const ResultsHeader = () => {
                 </Avatar>
               </MenuButton>
               <MenuList>
+              <MenuItem
+                  onClick={toggleColorMode}
+                >
+                  Change theme to  {colorMode === 'light' ? 'Dark' : 'Light'}
+                </MenuItem>
                 <MenuItem
                   onClick={() => {
                     dispatch(logout());

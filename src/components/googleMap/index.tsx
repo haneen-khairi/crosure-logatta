@@ -1,4 +1,4 @@
-import { IconButton } from "@chakra-ui/react";
+import { IconButton, Text, useColorMode } from "@chakra-ui/react";
 import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -29,6 +29,8 @@ interface props {
 
 const GoogleMapComp = React.memo(
   ({ data, setProperty, coordinates }: props) => {
+    const { colorMode } = useColorMode()
+
     // console.log("=== google map ===", data, setProperty, coordinates);
     const [activePopupId, setActivePopupId] = useState(null);
     const [activePopupCordinates, setActivePopupCordinates] = useState({
@@ -178,7 +180,9 @@ const GoogleMapComp = React.memo(
                         position={activePopupCordinates}
                         onCloseClick={() => setActivePopupId(null)}
                       >
-                        <div>Actions</div>
+                        {/* <Text color={colorMode === 'light' ? '#040404' : '#fff'}> */}
+                          <a  target="_blank" style={{color: 'blue'}} href={prop.url_link}>{prop.url_link}</a>
+                        {/* </Text> */}
                       </InfoWindow>
                     )
                 )}
