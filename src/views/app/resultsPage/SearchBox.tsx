@@ -130,14 +130,16 @@ const  ResultsSearchBox = ({
       body={
         <Fragment>
           {!withoutMap && data?.length ? <>
-            
-                <GoogleMapComp coordinates={coordinates} data={data} setProperty={setProperty} />
-                <FormRenderer
+            <FormRenderer
                 
-                  map={true}
-                  inputs={inputs}
-                  onSubmit={(e: object) => onSubmit(e)}
-                />
+                map={true}
+                inputs={inputs}
+                onSubmit={(e: object) => onSubmit(e)}
+              />
+              <br />
+              <br />
+                <GoogleMapComp coordinates={coordinates} data={data} setProperty={setProperty} />
+               
               
            </> : (
             <FormRenderer 
