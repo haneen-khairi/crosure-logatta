@@ -84,7 +84,7 @@ const ResultsChartsBox = () => {
     }, 0);
   }
   function calculateYearStats(dataArray: any, key: string) {
-    const yearStats = {};
+    const yearStats: any = {};
   
     dataArray.forEach((item: any) => {
       item.stats.forEach((yearData: any) => {
