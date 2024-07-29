@@ -1,4 +1,4 @@
-import { IconButton, useColorMode } from "@chakra-ui/react";
+import { IconButton } from "@chakra-ui/react";
 import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -29,7 +29,7 @@ interface props {
 
 const GoogleMapComp = React.memo(
   ({ data, setProperty, coordinates }: props) => {
-    const { colorMode } = useColorMode()
+    // const { colorMode } = useColorMode()
 
     // console.log("=== google map ===", data, setProperty, coordinates);
     const [activePopupId, setActivePopupId] = useState(null);
